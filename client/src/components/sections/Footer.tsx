@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { Facebook, Instagram, Music2 } from "lucide-react";
 
 export function Footer() {
   return (
@@ -21,11 +21,8 @@ export function Footer() {
             <a href="#" className="p-3 rounded-full bg-white/5 hover:bg-accent hover:text-accent-foreground transition-all duration-300">
               <Instagram className="w-5 h-5" />
             </a>
-            <a href="#" className="p-3 rounded-full bg-white/5 hover:bg-accent hover:text-accent-foreground transition-all duration-300">
-              <Twitter className="w-5 h-5" /> {/* Using Twitter icon for TikTok placeholder if needed, or just Twitter */}
-            </a>
-            <a href="#" className="p-3 rounded-full bg-white/5 hover:bg-accent hover:text-accent-foreground transition-all duration-300">
-              <Linkedin className="w-5 h-5" />
+            <a href="#" className="p-3 rounded-full bg-white/5 hover:bg-black hover:text-white transition-all duration-300">
+              <Music2 className="w-5 h-5" />
             </a>
           </div>
         </div>

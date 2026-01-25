@@ -41,22 +41,25 @@ export function Navbar() {
         </div>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
-          {["Мисия", "Стани част", "Контакти"].map((item) => (
+        <div className="hidden md:flex items-center gap-8 flex-1 justify-center">
+          {["Мисия", "Галерия", "Статии", "Стани част", "Контакти"].map((item) => (
             <button
               key={item}
-              onClick={() => scrollToSection(item === "Мисия" ? "mission" : item === "Стани част" ? "join" : "contact")}
+              onClick={() => {
+                const idMap: Record<string, string> = {
+                  "Мисия": "mission",
+                  "Галерия": "gallery",
+                  "Статии": "articles",
+                  "Стани част": "join",
+                  "Контакти": "contact"
+                };
+                scrollToSection(idMap[item]);
+              }}
               className="text-sm font-medium hover:text-accent transition-colors uppercase tracking-widest"
             >
               {item}
             </button>
           ))}
-          <Button 
-            className="rounded-full px-6 bg-primary hover:bg-primary/90 text-primary-foreground font-medium transition-all hover:scale-105"
-            onClick={() => scrollToSection("donate")}
-          >
-            Дари сега
-          </Button>
         </div>
 
         {/* Mobile Toggle */}

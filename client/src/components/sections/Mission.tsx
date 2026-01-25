@@ -53,7 +53,7 @@ export function Mission() {
             {cards.map((card, index) => (
               <div 
                 key={index}
-                className="perspective-1000 h-[320px] cursor-pointer"
+                className="perspective-1000 h-[300px] cursor-pointer"
                 onClick={() => setFlipped(flipped === index ? null : index)}
               >
                 <motion.div
@@ -69,18 +69,18 @@ export function Mission() {
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/90" />
                     </div>
                     <div className="flex-1 p-8 flex flex-col justify-center">
-                      <h3 className="text-3xl font-serif font-bold text-primary mb-3">{card.title}</h3>
+                      <h3 className="text-3xl font-serif font-bold text-primary mb-1">{card.title}</h3>
                       <p className="text-muted-foreground leading-relaxed">{card.frontText}</p>
                     </div>
                   </div>
 
                   {/* Back */}
                   <div 
-                    className="absolute inset-0 backface-hidden bg-primary rounded-[2.5rem] shadow-2xl p-10 flex flex-col items-center justify-center text-center text-primary-foreground border border-primary/20"
+                    className="absolute inset-0 backface-hidden bg-[#e0f2fe] rounded-[2.5rem] shadow-2xl p-10 flex flex-col items-center justify-center text-center text-[#0369a1] border border-[#bae6fd]"
                     style={{ transform: "rotateY(180deg)" }}
                   >
-                    <h3 className="text-2xl font-serif font-bold mb-6 text-accent">{card.title}</h3>
-                    <p className="leading-relaxed text-lg font-light">
+                    <h3 className="text-2xl font-serif font-bold mb-6">{card.title}</h3>
+                    <p className="leading-relaxed text-lg font-medium">
                       {card.back}
                     </p>
                   </div>

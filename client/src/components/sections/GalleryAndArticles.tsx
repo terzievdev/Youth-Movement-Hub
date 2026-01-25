@@ -1,0 +1,57 @@
+import { motion } from "framer-motion";
+import missionBg from "@/assets/mission-bg.png";
+import gallery1 from "@/assets/gallery-1.png";
+import article1 from "@/assets/article-1.png";
+import { ArrowRight } from "lucide-react";
+
+export function GalleryAndArticles() {
+  return (
+    <section className="py-24 relative overflow-hidden bg-background">
+      {/* Background Image Overlay */}
+      <div className="absolute inset-0 z-0">
+        <img src={missionBg} className="w-full h-full object-cover opacity-10 grayscale" alt="Background" />
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16">
+          {/* Gallery Section */}
+          <div id="gallery">
+            <h2 className="text-4xl font-serif font-bold text-primary mb-8">Галерия</h2>
+            <div className="grid grid-cols-2 gap-4">
+              <motion.div 
+                whileHover={{ scale: 1.02 }}
+                className="col-span-2 h-64 rounded-3xl overflow-hidden shadow-lg border border-white/20"
+              >
+                <img src={gallery1} className="w-full h-full object-cover" alt="Gallery 1" />
+              </motion.div>
+              <div className="h-40 rounded-3xl bg-secondary/40 border border-white/20 flex items-center justify-center text-muted-foreground italic">Още снимки скоро...</div>
+              <div className="h-40 rounded-3xl bg-secondary/40 border border-white/20 flex items-center justify-center text-muted-foreground italic">Още снимки скоро...</div>
+            </div>
+          </div>
+
+          {/* Articles Section */}
+          <div id="articles">
+            <h2 className="text-4xl font-serif font-bold text-primary mb-8">Статии</h2>
+            <motion.div 
+              whileHover={{ y: -5 }}
+              className="bg-card/60 backdrop-blur-sm rounded-3xl overflow-hidden shadow-xl border border-white/20 group cursor-pointer"
+            >
+              <div className="h-56 relative overflow-hidden">
+                <img src={article1} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Article 1" />
+                <div className="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Ново</div>
+              </div>
+              <div className="p-8">
+                <p className="text-accent text-sm font-bold mb-2">24 Май, 2024</p>
+                <h3 className="text-2xl font-serif font-bold text-primary mb-4">Бъдещето на неформалното образование в България</h3>
+                <p className="text-muted-foreground mb-6 line-clamp-2">Как новите методи на обучение променят начина, по който младите хора възприемат света и изграждат своите умения...</p>
+                <div className="flex items-center text-primary font-bold group-hover:text-accent transition-colors">
+                  Прочети повече <ArrowRight className="ml-2 w-4 h-4" />
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
