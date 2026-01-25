@@ -63,10 +63,10 @@ export function Mission() {
                   className="relative w-full h-full preserve-3d"
                 >
                   {/* Front */}
-                  <div className="absolute inset-0 backface-hidden bg-card/80 backdrop-blur-sm rounded-[2.5rem] shadow-2xl p-0 overflow-hidden border border-white/20 flex">
+                  <div className="absolute inset-0 backface-hidden bg-white/10 backdrop-blur-[10px] rounded-[2.5rem] shadow-2xl p-0 overflow-hidden border border-white/20 flex">
                     <div className="w-1/3 h-full relative">
                       <img src={card.image} className="w-full h-full object-cover" alt={card.title} />
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/90" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-white/20" />
                     </div>
                     <div className="flex-1 p-8 flex flex-col justify-center">
                       <h3 className="text-3xl font-serif font-bold text-primary mb-1">{card.title}</h3>
@@ -76,7 +76,7 @@ export function Mission() {
 
                   {/* Back */}
                   <div 
-                    className="absolute inset-0 backface-hidden bg-[#e0f2fe] rounded-[2.5rem] shadow-2xl p-10 flex flex-col items-center justify-center text-center text-[#0369a1] border border-[#bae6fd]"
+                    className="absolute inset-0 backface-hidden bg-white/40 backdrop-blur-[20px] rounded-[2.5rem] shadow-2xl p-10 flex flex-col items-center justify-center text-center text-[#0369a1] border border-white/30"
                     style={{ transform: "rotateY(180deg)" }}
                   >
                     <h3 className="text-2xl font-serif font-bold mb-6">{card.title}</h3>

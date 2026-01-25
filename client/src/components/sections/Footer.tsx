@@ -1,5 +1,3 @@
-import { Facebook, Instagram, Music2 } from "lucide-react";
-
 export function Footer() {
   return (
     <footer className="bg-primary text-primary-foreground py-12 border-t border-primary-foreground/10">
@@ -14,17 +12,7 @@ export function Footer() {
             </p>
           </div>
 
-          <div className="flex items-center gap-4">
-            <a href="#" className="p-3 rounded-full bg-white/5 hover:bg-accent hover:text-accent-foreground transition-all duration-300">
-              <Facebook className="w-5 h-5" />
-            </a>
-            <a href="#" className="p-3 rounded-full bg-white/5 hover:bg-accent hover:text-accent-foreground transition-all duration-300">
-              <Instagram className="w-5 h-5" />
-            </a>
-            <a href="#" className="p-3 rounded-full bg-white/5 hover:bg-black hover:text-white transition-all duration-300">
-              <Music2 className="w-5 h-5" />
-            </a>
-          </div>
+          <div className="hidden md:block h-12 w-px bg-white/10" />
         </div>
 
         <div className="h-px w-full bg-white/10 mb-8" />

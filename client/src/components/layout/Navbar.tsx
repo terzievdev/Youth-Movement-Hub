@@ -55,9 +55,10 @@ export function Navbar() {
                 };
                 scrollToSection(idMap[item]);
               }}
-              className="text-sm font-medium hover:text-accent transition-colors uppercase tracking-widest"
+              className="group relative text-sm font-medium hover:text-accent transition-colors uppercase tracking-widest py-2"
             >
               {item}
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
             </button>
           ))}
         </div>
@@ -75,18 +76,24 @@ export function Navbar() {
       {isMobileMenuOpen && (
         <div className="absolute top-full left-0 right-0 bg-background border-b border-border p-6 md:hidden animate-in slide-in-from-top-5">
           <div className="flex flex-col gap-4">
-            {["Мисия", "Стани част", "Контакти"].map((item) => (
+            {["Мисия", "Галерия", "Статии", "Стани част", "Контакти"].map((item) => (
               <button
                 key={item}
-                onClick={() => scrollToSection(item === "Мисия" ? "mission" : item === "Стани част" ? "join" : "contact")}
+                onClick={() => {
+                  const idMap: Record<string, string> = {
+                    "Мисия": "mission",
+                    "Галерия": "gallery",
+                    "Статии": "articles",
+                    "Стани част": "join",
+                    "Контакти": "contact"
+                  };
+                  scrollToSection(idMap[item]);
+                }}
                 className="text-lg font-serif font-medium text-left"
               >
                 {item}
               </button>
             ))}
-            <Button className="w-full mt-4" onClick={() => scrollToSection("donate")}>
-              Дари сега
-            </Button>
           </div>
         </div>
       )}

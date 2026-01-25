@@ -6,8 +6,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import { Facebook, Instagram, Music2, MapPin } from "lucide-react";
+import { Facebook, Instagram, MapPin } from "lucide-react";
 import missionBg from "@/assets/mission-bg.png";
+
+const TikTokIcon = ({ className }: { className?: string }) => (
+  <svg 
+    viewBox="0 0 24 24" 
+    fill="currentColor" 
+    className={className}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.89-.6-4.14-1.33-.25-.15-.49-.31-.72-.49V15c0 2.37-1.12 4.67-3.14 5.92-2.02 1.25-4.63 1.4-6.79.38-2.16-1.02-3.65-3.23-3.88-5.61-.23-2.38.8-4.78 2.72-6.22 1.65-1.24 3.79-1.64 5.81-1.15V12.3c-.98-.32-2.08-.18-2.96.38-.88.56-1.47 1.55-1.6 2.58-.13 1.03.26 2.1 1.05 2.77.79.67 1.88.85 2.83.47.95-.38 1.66-1.29 1.83-2.3.02-.12.03-.24.03-.36V.02z"/>
+  </svg>
+);
 
 const formSchema = z.object({
   name: z.string().min(2, "Името трябва да е поне 2 символа"),
@@ -88,7 +99,7 @@ export function Contact() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full h-12 text-md font-bold rounded-xl shadow-lg hover:shadow-accent/20 transition-all">
+                <Button type="submit" className="w-full h-12 text-md font-bold rounded-xl shadow-lg hover:shadow-accent/20 hover:bg-primary/90 transition-all">
                   Изпрати
                 </Button>
               </form>
@@ -100,7 +111,7 @@ export function Contact() {
             {/* Real Interactive Map with specific address */}
             <div className="h-[280px] lg:w-[400px] rounded-[2rem] overflow-hidden shadow-xl border border-border/30 grayscale hover:grayscale-0 transition-all duration-700">
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2932.321773752528!2d23.34842777647233!3d42.69741217116484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa85f8f5b8f5b5%3A0x78395ad9d44800!2sul.%20%22Aleksandar%20Zhendov%22%206%2C%201113%20g.k.%20Yavorov%2C%20Sofia!5e0!3m2!1sen!2sbg!4v1716385000000!5m2!1sen!2sbg" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2932.321773752528!2d23.34842777647233!3d42.69741217116484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa85f8f5b8f5b5%3A0x78395ad9d44800!2sul.%20%22Aleksandar%20Zhendov%22%206%2C%201113%20g.k.%20Yavorov%2C%20Sofia!5e0!3m2!1sen!2sbg!4v1716385000000!5m2!1sen!2sbg&marker=42.697412,23.348427" 
                 width="100%" 
                 height="100%" 
                 style={{ border: 0 }} 
@@ -131,7 +142,7 @@ export function Contact() {
                 </a>
                 <a href="#" className="group flex flex-col items-center gap-2">
                   <div className="p-4 rounded-xl bg-white/50 group-hover:bg-black group-hover:text-white transition-all duration-300 shadow-sm">
-                    <Music2 className="w-5 h-5" />
+                    <TikTokIcon className="w-5 h-5" />
                   </div>
                   <span className="text-[10px] font-serif uppercase tracking-widest font-bold opacity-70">TikTok</span>
                 </a>
