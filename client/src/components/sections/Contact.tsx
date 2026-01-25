@@ -6,7 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import { Facebook, Instagram, Music2 } from "lucide-react";
+import { Facebook, Instagram, Music2, MapPin } from "lucide-react";
+import missionBg from "@/assets/mission-bg.png";
 
 const formSchema = z.object({
   name: z.string().min(2, "Името трябва да е поне 2 символа"),
@@ -30,11 +31,16 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 bg-background">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col lg:flex-row gap-12 items-start justify-center">
+    <section id="contact" className="py-24 relative overflow-hidden bg-background">
+      {/* Background Image Overlay */}
+      <div className="absolute inset-0 z-0">
+        <img src={missionBg} className="w-full h-full object-cover opacity-10 grayscale" alt="Background" />
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="flex flex-col lg:flex-row gap-8 items-start justify-center">
           {/* Form Card */}
-          <div className="bg-secondary/10 backdrop-blur-md p-10 rounded-[2rem] border border-border/30 shadow-xl w-full lg:max-w-lg">
+          <div className="bg-secondary/10 backdrop-blur-md p-10 rounded-[2rem] border border-border/30 shadow-xl w-full lg:max-w-md">
             <div className="mb-8">
               <h2 className="text-3xl font-serif font-bold text-primary mb-3">Свържи се с нас</h2>
               <div className="w-12 h-1 bg-accent mb-4" />
@@ -92,7 +98,7 @@ export function Contact() {
           {/* Map & Socials Column */}
           <div className="flex flex-col gap-6 w-full lg:w-auto">
             {/* Real Interactive Map */}
-            <div className="h-[320px] lg:w-[450px] rounded-[2rem] overflow-hidden shadow-xl border border-border/30 grayscale hover:grayscale-0 transition-all duration-700">
+            <div className="h-[280px] lg:w-[400px] rounded-[2rem] overflow-hidden shadow-xl border border-border/30 grayscale hover:grayscale-0 transition-all duration-700">
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d187742.668478496!2d23.2505436662485!3d42.69534639454721!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa861578f50533%3A0x78395ad9d44800!2sSofia!5e0!3m2!1sen!2sbg!4v1716384000000!5m2!1sen!2sbg" 
                 width="100%" 
@@ -104,17 +110,23 @@ export function Contact() {
               ></iframe>
             </div>
             
-            {/* Compact Socials Card */}
-            <div className="bg-secondary/10 backdrop-blur-md p-6 rounded-[2rem] border border-border/30 flex justify-center gap-6 self-center lg:self-start px-8">
-              <a href="#" className="p-4 rounded-xl bg-white/50 hover:bg-primary hover:text-white transition-all duration-300 shadow-sm">
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="p-4 rounded-xl bg-white/50 hover:bg-accent hover:text-accent-foreground transition-all duration-300 shadow-sm">
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a href="#" className="p-4 rounded-xl bg-white/50 hover:bg-black hover:text-white transition-all duration-300 shadow-sm">
-                <Music2 className="w-5 h-5" /> {/* TikTok icon */}
-              </a>
+            {/* Compact Info Card */}
+            <div className="bg-secondary/10 backdrop-blur-md p-6 rounded-[2rem] border border-border/30 flex flex-col gap-4 items-center w-full max-w-[400px]">
+              <div className="flex items-center gap-3 text-primary/80">
+                <MapPin className="w-5 h-5 text-accent" />
+                <span className="text-sm font-medium italic">ул. "Александър Жендов" №6, София</span>
+              </div>
+              <div className="flex gap-4">
+                <a href="#" className="p-3 rounded-xl bg-white/50 hover:bg-primary hover:text-white transition-all duration-300 shadow-sm">
+                  <Facebook className="w-5 h-5" />
+                </a>
+                <a href="#" className="p-3 rounded-xl bg-white/50 hover:bg-accent hover:text-accent-foreground transition-all duration-300 shadow-sm">
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a href="#" className="p-3 rounded-xl bg-white/50 hover:bg-black hover:text-white transition-all duration-300 shadow-sm">
+                  <Music2 className="w-5 h-5" />
+                </a>
+              </div>
             </div>
           </div>
         </div>

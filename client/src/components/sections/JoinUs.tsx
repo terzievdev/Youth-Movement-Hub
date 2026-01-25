@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { HandHeart, Users, Briefcase, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
+import missionBg from "@/assets/mission-bg.png";
 
 export function JoinUs() {
   const options = [
@@ -31,8 +32,13 @@ export function JoinUs() {
   ];
 
   return (
-    <section id="join" className="py-24 bg-secondary/30">
-      <div className="container mx-auto px-6">
+    <section id="join" className="py-24 relative overflow-hidden bg-secondary/30">
+      {/* Background Image Overlay */}
+      <div className="absolute inset-0 z-0">
+        <img src={missionBg} className="w-full h-full object-cover opacity-10 grayscale" alt="Background" />
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
         <div className="mb-16 md:flex md:items-end md:justify-between">
           <div className="max-w-2xl">
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-primary mb-4">Стани част от нас</h2>

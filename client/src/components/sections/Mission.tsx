@@ -1,23 +1,21 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Target, Lightbulb } from "lucide-react";
 import missionBg from "@/assets/mission-bg.png";
 import missionImg from "@/assets/mission-card.png";
 import visionImg from "@/assets/vision-card.png";
+import sideImg from "@/assets/about-us-side.png";
 
 export function Mission() {
   const [flipped, setFlipped] = useState<number | null>(null);
 
   const cards = [
     {
-      icon: <Target className="w-12 h-12 text-accent" />,
       image: missionImg,
       title: "Мисия",
       frontText: "Изграждаме умения за бъдещето чрез иновативно образование.",
       back: "Мисията на „НЕКСТ ДЖЕН БЪЛГАРИЯ“ е да подкрепя развитието на младите хора чрез неформално образование, изграждане на ключови умения и насърчаване на активно гражданско участие. Работим за приобщаване, равни възможности и социална интеграция, като създаваме достъпна и подкрепяща среда за всички млади хора."
     },
     {
-      icon: <Lightbulb className="w-12 h-12 text-primary" />,
       image: visionImg,
       title: "Визия",
       frontText: "Създаваме общество от уверени и ангажирани млади граждани.",
@@ -39,47 +37,57 @@ export function Mission() {
           <div className="w-32 h-1 bg-accent mx-auto" />
         </div>
 
-        <div className="grid md:grid-cols-2 gap-16 max-w-6xl mx-auto">
-          {cards.map((card, index) => (
-            <div 
-              key={index}
-              className="perspective-1000 h-[500px] cursor-pointer"
-              onClick={() => setFlipped(flipped === index ? null : index)}
-            >
-              <motion.div
-                initial={false}
-                animate={{ rotateY: flipped === index ? 180 : 0 }}
-                transition={{ duration: 0.8, type: "spring", stiffness: 150, damping: 20 }}
-                className="relative w-full h-full preserve-3d"
-              >
-                {/* Front */}
-                <div className="absolute inset-0 backface-hidden bg-card/80 backdrop-blur-sm rounded-[2.5rem] shadow-2xl p-0 overflow-hidden border border-white/20 flex flex-col">
-                  <div className="h-2/3 w-full relative">
-                    <img src={card.image} className="w-full h-full object-cover" alt={card.title} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-card/90 to-transparent" />
-                  </div>
-                  <div className="p-8 flex flex-col items-center justify-center text-center -mt-16 relative z-10">
-                    <div className="mb-4 p-4 rounded-2xl bg-white shadow-lg text-primary">
-                      {card.icon}
-                    </div>
-                    <h3 className="text-3xl font-serif font-bold text-primary mb-4">{card.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed px-4">{card.frontText}</p>
-                  </div>
-                </div>
+        <div className="grid lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
+          {/* Side Image Card */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="hidden lg:block h-[600px] rounded-[3rem] overflow-hidden shadow-2xl border border-white/20"
+          >
+            <img src={sideImg} className="w-full h-full object-cover" alt="Collaborative work" />
+          </motion.div>
 
-                {/* Back */}
-                <div 
-                  className="absolute inset-0 backface-hidden bg-primary rounded-[2.5rem] shadow-2xl p-12 flex flex-col items-center justify-center text-center text-primary-foreground border border-primary/20"
-                  style={{ transform: "rotateY(180deg)" }}
+          {/* Vertical Cards Stack */}
+          <div className="flex flex-col gap-10">
+            {cards.map((card, index) => (
+              <div 
+                key={index}
+                className="perspective-1000 h-[320px] cursor-pointer"
+                onClick={() => setFlipped(flipped === index ? null : index)}
+              >
+                <motion.div
+                  initial={false}
+                  animate={{ rotateY: flipped === index ? 180 : 0 }}
+                  transition={{ duration: 0.8, type: "spring", stiffness: 150, damping: 20 }}
+                  className="relative w-full h-full preserve-3d"
                 >
-                  <h3 className="text-3xl font-serif font-bold mb-8 text-accent">{card.title}</h3>
-                  <p className="leading-relaxed text-xl font-light">
-                    {card.back}
-                  </p>
-                </div>
-              </motion.div>
-            </div>
-          ))}
+                  {/* Front */}
+                  <div className="absolute inset-0 backface-hidden bg-card/80 backdrop-blur-sm rounded-[2.5rem] shadow-2xl p-0 overflow-hidden border border-white/20 flex">
+                    <div className="w-1/3 h-full relative">
+                      <img src={card.image} className="w-full h-full object-cover" alt={card.title} />
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/90" />
+                    </div>
+                    <div className="flex-1 p-8 flex flex-col justify-center">
+                      <h3 className="text-3xl font-serif font-bold text-primary mb-3">{card.title}</h3>
+                      <p className="text-muted-foreground leading-relaxed">{card.frontText}</p>
+                    </div>
+                  </div>
+
+                  {/* Back */}
+                  <div 
+                    className="absolute inset-0 backface-hidden bg-primary rounded-[2.5rem] shadow-2xl p-10 flex flex-col items-center justify-center text-center text-primary-foreground border border-primary/20"
+                    style={{ transform: "rotateY(180deg)" }}
+                  >
+                    <h3 className="text-2xl font-serif font-bold mb-6 text-accent">{card.title}</h3>
+                    <p className="leading-relaxed text-lg font-light">
+                      {card.back}
+                    </p>
+                  </div>
+                </motion.div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

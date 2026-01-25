@@ -8,9 +8,9 @@ export function Hero() {
   };
 
   const events = [
-    { date: "15 Юни", title: "Младежки форум София" },
-    { date: "22 Юни", title: "Работилница за лидерство" },
-    { date: "05 Юли", title: "Еко инициатива - парк Витоша" },
+    { date: "15 Юни", time: "10:00 ч.", title: "Младежки форум София" },
+    { date: "22 Юни", time: "14:30 ч.", title: "Работилница за лидерство" },
+    { date: "05 Юли", time: "09:00 ч.", title: "Еко инициатива - парк Витоша" },
   ];
 
   return (
@@ -34,9 +34,6 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-left"
           >
-            <span className="inline-block py-1 px-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold tracking-widest uppercase mb-6">
-              Обединяваме бъдещето
-            </span>
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight drop-shadow-lg">
               Време е за <br />
               <span className="italic text-accent">промяна</span>
@@ -61,7 +58,10 @@ export function Hero() {
               <div className="space-y-6">
                 {events.map((event, i) => (
                   <div key={i} className="group cursor-pointer">
-                    <p className="text-accent text-sm font-bold mb-1">{event.date}</p>
+                    <div className="flex justify-between items-center mb-1">
+                      <p className="text-accent text-sm font-bold">{event.date}</p>
+                      <p className="text-white/60 text-xs font-mono">{event.time}</p>
+                    </div>
                     <p className="text-white text-lg font-medium group-hover:text-accent transition-colors">{event.title}</p>
                     <div className="w-full h-px bg-white/10 mt-4 group-last:hidden" />
                   </div>
