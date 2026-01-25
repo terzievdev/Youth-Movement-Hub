@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import missionBg from "@/assets/mission-bg.png";
 import gallery1 from "@/assets/gallery-1.png";
+import gallery2 from "@/assets/gallery-2.png";
+import gallery3 from "@/assets/gallery-3.png";
 import article1 from "@/assets/article-1.png";
 import { ArrowRight } from "lucide-react";
 
@@ -24,8 +26,18 @@ export function GalleryAndArticles() {
               >
                 <img src={gallery1} className="w-full h-full object-cover" alt="Gallery 1" />
               </motion.div>
-              <div className="h-40 rounded-3xl bg-secondary/40 border border-white/20 flex items-center justify-center text-muted-foreground italic">Още снимки скоро...</div>
-              <div className="h-40 rounded-3xl bg-secondary/40 border border-white/20 flex items-center justify-center text-muted-foreground italic">Още снимки скоро...</div>
+              <motion.div 
+                whileHover={{ scale: 1.02 }}
+                className="h-40 rounded-3xl overflow-hidden shadow-lg border border-white/20"
+              >
+                <img src={gallery2} className="w-full h-full object-cover" alt="Gallery 2" />
+              </motion.div>
+              <motion.div 
+                whileHover={{ scale: 1.02 }}
+                className="h-40 rounded-3xl overflow-hidden shadow-lg border border-white/20"
+              >
+                <img src={gallery3} className="w-full h-full object-cover" alt="Gallery 3" />
+              </motion.div>
             </div>
           </div>
 

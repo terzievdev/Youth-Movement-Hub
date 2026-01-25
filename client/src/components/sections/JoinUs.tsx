@@ -58,17 +58,17 @@ export function JoinUs() {
               transition={{ delay: index * 0.1 }}
               className="flex"
             >
-              <div className={`flex-1 p-8 rounded-2xl flex flex-col justify-between transition-all hover:scale-[1.02] shadow-sm hover:shadow-md ${option.color === 'bg-white text-primary border border-border hover:bg-secondary' ? 'bg-white' : option.color}`}>
+              <div className={`flex-1 p-8 rounded-2xl flex flex-col justify-between transition-all hover:scale-[1.02] shadow-sm hover:shadow-md bg-white/10 backdrop-blur-[10px] border border-white/20`}>
                 <div>
-                  <div className="mb-6 opacity-90">{option.icon}</div>
-                  <h3 className="text-2xl font-bold mb-3 font-serif">{option.title}</h3>
-                  <p className={`mb-8 opacity-80 leading-relaxed`}>
+                  <div className="mb-6 text-primary">{option.icon}</div>
+                  <h3 className="text-2xl font-bold mb-3 font-serif text-primary">{option.title}</h3>
+                  <p className={`mb-8 opacity-80 leading-relaxed text-muted-foreground`}>
                     {option.description}
                   </p>
                 </div>
                 <Button 
                   variant="ghost" 
-                  className={`w-full justify-between group ${option.id === 'partner' ? 'hover:bg-primary/5' : 'hover:bg-white/10'}`}
+                  className={`w-full justify-between group hover:bg-primary/5 text-primary font-bold`}
                 >
                   {option.action}
                   <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
