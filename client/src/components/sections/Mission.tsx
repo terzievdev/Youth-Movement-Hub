@@ -1,23 +1,22 @@
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
-import { Target, Lightbulb, Users } from "lucide-react";
+import { useState } from "react";
+import { Target, Lightbulb } from "lucide-react";
 
 export function Mission() {
+  const [flipped, setFlipped] = useState<number | null>(null);
+
   const cards = [
     {
-      icon: <Target className="w-10 h-10 text-accent" />,
-      title: "Нашата Мисия",
-      description: "Да овластим младите хора чрез образование, менторство и реални възможности за развитие."
+      icon: <Target className="w-12 h-12 text-accent" />,
+      title: "Мисия",
+      front: "Мисията на „НЕКСТ ДЖЕН БЪЛГАРИЯ“ е да подкрепя развитието на младите хора...",
+      back: "Мисията на „НЕКСТ ДЖЕН БЪЛГАРИЯ“ е да подкрепя развитието на младите хора чрез неформално образование, изграждане на ключови умения и насърчаване на активно гражданско участие. Работим за приобщаване, равни възможности и социална интеграция, като създаваме достъпна и подкрепяща среда за всички млади хора."
     },
     {
-      icon: <Lightbulb className="w-10 h-10 text-primary" />,
-      title: "Нашата Визия",
-      description: "Свят, в който всеки млад човек има достъп до ресурсите, необходими за да реализира пълния си потенциал."
-    },
-    {
-      icon: <Users className="w-10 h-10 text-accent" />,
-      title: "Нашите Ценности",
-      description: "Интегритет, иновации, приобщаване и непоколебима вяра в силата на общността."
+      icon: <Lightbulb className="w-12 h-12 text-primary" />,
+      title: "Визия",
+      front: "Вярваме в общество, в което младите хора са активни, уверени и ангажирани...",
+      back: "Вярваме в общество, в което младите хора са активни, уверени и ангажирани граждани, допринасящи за демократични, приобщаващи и устойчиви общности в България и Европа."
     }
   ];
 
@@ -29,29 +28,49 @@ export function Mission() {
           <div className="w-24 h-1 bg-accent mx-auto" />
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {cards.map((card, index) => (
-            <motion.div
+            <div 
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
+              className="perspective-1000 h-[400px] cursor-pointer"
+              onClick={() => setFlipped(flipped === index ? null : index)}
             >
-              <Card className="h-full border-none shadow-lg hover:shadow-xl transition-all hover:-translate-y-2 bg-card group overflow-hidden">
-                <CardContent className="p-8 flex flex-col items-center text-center h-full relative z-10">
-                  <div className="mb-6 p-4 rounded-full bg-secondary/50 group-hover:bg-primary/5 transition-colors">
+              <motion.div
+                initial={false}
+                animate={{ rotateY: flipped === index ? 180 : 0 }}
+                transition={{ duration: 0.6, type: "spring", stiffness: 260, damping: 20 }}
+                className="relative w-full h-full preserve-3d"
+              >
+                {/* Front */}
+                <div className="absolute inset-0 backface-hidden bg-card rounded-3xl shadow-xl p-10 flex flex-col items-center justify-center text-center border border-border">
+                  <div className="mb-8 p-6 rounded-full bg-secondary/30">
                     {card.icon}
                   </div>
-                  <h3 className="text-2xl font-serif font-bold text-primary mb-4">{card.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{card.description}</p>
-                </CardContent>
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-accent to-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-              </Card>
-            </motion.div>
+                  <h3 className="text-3xl font-serif font-bold text-primary mb-4">{card.title}</h3>
+                  <p className="text-muted-foreground italic">Кликни за детайли</p>
+                </div>
+
+                {/* Back */}
+                <div 
+                  className="absolute inset-0 backface-hidden bg-primary rounded-3xl shadow-xl p-10 flex flex-col items-center justify-center text-center text-primary-foreground border border-primary/20"
+                  style={{ transform: "rotateY(180deg)" }}
+                >
+                  <h3 className="text-2xl font-serif font-bold mb-6 text-accent">{card.title}</h3>
+                  <p className="leading-relaxed text-lg">
+                    {card.back}
+                  </p>
+                </div>
+              </motion.div>
+            </div>
           ))}
         </div>
       </div>
+
+      <style>{`
+        .perspective-1000 { perspective: 1000px; }
+        .preserve-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; }
+      `}</style>
     </section>
   );
 }
