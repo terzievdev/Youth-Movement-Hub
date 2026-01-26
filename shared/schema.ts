@@ -1,18 +1,41 @@
-import { sql } from "drizzle-orm";
-import { pgTable, text, varchar } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-export const users = pgTable("users", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  username: text("username").notNull().unique(),
-  password: text("password").notNull(),
+export const blogSchema = z.object({
+  _id: z.string(),
+  _type: z.literal("blog"),
+  title: z.string(),
+  slug: z.object({ current: z.string() }),
+  mainImage: z.object({
+    asset: z.object({ _ref: z.string() }),
+    alt: z.string().optional(),
+  }).optional(),
+  body: z.string().optional(),
+  publishedAt: z.string(),
 });
 
-export const insertUserSchema = createInsertSchema(users).pick({
-  username: true,
-  password: true,
+export const meetingSchema = z.object({
+  _id: z.string(),
+  _type: z.literal("meeting"),
+  title: z.string(),
+  dateTime: z.string(),
+  location: z.string(),
+  description: z.string().optional(),
 });
 
-export type InsertUser = z.infer<typeof insertUserSchema>;
-export type User = typeof users.$inferSelect;
+export const gallerySchema = z.object({
+  _id: z.string(),
+  _type: z.literal("gallery"),
+  title: z.string(),
+  images: z.array(z.object({
+    asset: z.object({ _ref: z.string() }),
+    caption: z.string().optional(),
+  })),
+});
+
+export type Blog = z.infer<typeof blogSchema>;
+export type Meeting = z.infer<typeof meetingSchema>;
+export type Gallery = z.infer<typeof gallerySchema>;
+
+export type InsertBlog = Omit<Blog, "_id">;
+export type InsertMeeting = Omit<Meeting, "_id">;
+export type InsertGallery = Omit<Gallery, "_id">;
