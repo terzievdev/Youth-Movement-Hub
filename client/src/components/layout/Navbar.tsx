@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import logo from "@/assets/logo.jpg";
+import logo from "@/assets/logo.png";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -29,26 +29,26 @@ export function Navbar() {
     <nav
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent",
-        isScrolled ? "bg-background/80 backdrop-blur-md border-border py-4 shadow-sm" : "bg-transparent py-6"
+        isScrolled ? "bg-background/80 backdrop-blur-md border-border py-2 shadow-sm" : "bg-transparent py-4"
       )}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center">
           <Link href="/">
-            <a className="flex items-center gap-3 group">
+            <a className="flex flex-col items-center group">
               <img 
                 src={logo} 
                 alt="Logo" 
                 className={cn(
-                  "h-10 w-auto transition-all duration-300 rounded-lg",
-                  !isScrolled && "opacity-80 grayscale brightness-200 contrast-200"
+                  "h-12 w-auto transition-all duration-300",
+                  !isScrolled && "brightness-0 invert"
                 )} 
               />
               <span className={cn(
-                "text-2xl font-serif font-bold tracking-tighter transition-colors duration-300",
+                "text-xs font-serif font-bold tracking-[0.2em] transition-colors duration-300 mt-1 whitespace-nowrap",
                 isScrolled ? "text-primary" : "text-white"
               )}>
-                NEXT GEN <span className="text-accent">BULGARIA</span>
+                NEXT GEN BULGARIA
               </span>
             </a>
           </Link>
