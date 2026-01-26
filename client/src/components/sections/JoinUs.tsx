@@ -2,6 +2,9 @@ import { Button } from "@/components/ui/button";
 import { HandHeart, Users, Briefcase, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import missionBg from "@/assets/mission-bg.png";
+import volunteerBg from "@/assets/volunteer-bg.png";
+import donationBg from "@/assets/donation-bg.png";
+import partnershipBg from "@/assets/partnership-bg.png";
 
 export function JoinUs() {
   const options = [
@@ -11,7 +14,8 @@ export function JoinUs() {
       icon: <Users className="w-8 h-8" />,
       description: "Отдели от времето си за каузата. Твоята енергия е нашият двигател.",
       action: "Кандидатствай",
-      color: "bg-primary text-primary-foreground"
+      color: "bg-primary text-primary-foreground",
+      image: volunteerBg
     },
     {
       id: "donate",
@@ -19,7 +23,8 @@ export function JoinUs() {
       icon: <HandHeart className="w-8 h-8" />,
       description: "Подкрепи нашите инициативи финансово. Всяка помощ е от значение.",
       action: "Дари сега",
-      color: "bg-accent text-accent-foreground"
+      color: "bg-accent text-accent-foreground",
+      image: donationBg
     },
     {
       id: "partner",
@@ -27,7 +32,8 @@ export function JoinUs() {
       icon: <Briefcase className="w-8 h-8" />,
       description: "Бизнес или организация? Нека обединим усилия за по-голямо въздействие.",
       action: "Свържи се",
-      color: "bg-white text-primary border border-border hover:bg-secondary"
+      color: "bg-white text-primary border border-border hover:bg-secondary",
+      image: partnershipBg
     }
   ];
 
@@ -59,9 +65,14 @@ export function JoinUs() {
               className="flex"
             >
               <div className="flex-1 p-8 rounded-[2.5rem] flex flex-col justify-between transition-all hover:scale-[1.02] shadow-xl bg-white/40 backdrop-blur-[12px] border border-white/40 group relative overflow-hidden">
-                {/* Subtle Background Asset */}
-                <div className="absolute top-[-10%] right-[-10%] w-32 h-32 opacity-[0.03] pointer-events-none group-hover:scale-110 transition-transform duration-700">
-                  {option.icon}
+                {/* Background Image Asset */}
+                <div className="absolute inset-0 z-0">
+                  <img 
+                    src={option.image} 
+                    className="w-full h-full object-cover opacity-[0.1] grayscale group-hover:scale-110 group-hover:opacity-[0.15] transition-all duration-700" 
+                    alt={option.title} 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-white/40" />
                 </div>
                 
                 <div className="relative z-10">

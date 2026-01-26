@@ -50,17 +50,17 @@ export function Mission() {
           </motion.div>
 
           {/* Vertical Cards Stack */}
-          <div className="flex flex-col gap-10">
+          <div className="flex flex-col gap-10 w-full">
             {cards.map((card, index) => (
               <div 
                 key={index}
-                className="perspective-1000 h-[300px] cursor-pointer group"
+                className="perspective-1000 h-[300px] cursor-pointer group w-full"
               >
                 <motion.div
                   initial={false}
-                  animate={{ rotateY: flipped === index ? 180 : 0 }}
+                  animate={{ rotateY: 0 }}
                   whileHover={{ rotateY: 180 }}
-                  transition={{ duration: 0.8, type: "spring", stiffness: 150, damping: 20 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
                   className="relative w-full h-full preserve-3d"
                 >
                   {/* Front */}
