@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import missionBg from "@/assets/mission-bg.png";
 import missionImg from "@/assets/mission-card.png";
-import visionImg from "@/assets/vision-card.png";
+import visionImg from "@/assets/vision-new.png";
 import sideImg from "@/assets/about-us-side.png";
 
 export function Mission() {
@@ -53,12 +53,12 @@ export function Mission() {
             {cards.map((card, index) => (
               <div 
                 key={index}
-                className="perspective-1000 h-[300px] cursor-pointer"
-                onClick={() => setFlipped(flipped === index ? null : index)}
+                className="perspective-1000 h-[300px] cursor-pointer group"
               >
                 <motion.div
                   initial={false}
                   animate={{ rotateY: flipped === index ? 180 : 0 }}
+                  whileHover={{ rotateY: 180 }}
                   transition={{ duration: 0.8, type: "spring", stiffness: 150, damping: 20 }}
                   className="relative w-full h-full preserve-3d"
                 >
