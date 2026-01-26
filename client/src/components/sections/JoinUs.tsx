@@ -69,10 +69,10 @@ export function JoinUs() {
                 <div className="absolute inset-0 z-0">
                   <img 
                     src={option.image} 
-                    className="w-full h-full object-cover opacity-[0.1] grayscale group-hover:scale-110 group-hover:opacity-[0.15] transition-all duration-700" 
+                    className="w-full h-full object-cover opacity-[0.25] grayscale group-hover:scale-110 group-hover:opacity-[0.35] transition-all duration-700" 
                     alt={option.title} 
                   />
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-white/40" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/60 via-transparent to-white/60" />
                 </div>
                 
                 <div className="relative z-10">
