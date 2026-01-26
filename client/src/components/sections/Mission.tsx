@@ -79,17 +79,17 @@ export function Mission() {
                     className="absolute inset-0 backface-hidden bg-[#fdfbf7] backdrop-blur-[25px] rounded-[2.5rem] shadow-2xl p-10 flex flex-col items-center justify-center text-center text-primary border border-[#e5d5c5]/50 overflow-hidden"
                     style={{ transform: "rotateY(180deg)" }}
                   >
-                    {/* Background Image - Enhanced Visibility while maintaining elegance */}
+                    {/* Background Image - Significantly more visible */}
                     <div className="absolute inset-0 z-0">
                       <img 
                         src={card.image} 
-                        className="w-full h-full object-cover opacity-[0.15] contrast-125 brightness-100 grayscale" 
+                        className="w-full h-full object-cover opacity-[0.45] contrast-110 brightness-95" 
                         alt="Thematic background" 
                       />
-                      <div className="absolute inset-0 bg-[#fdfbf7]/40 mix-blend-screen" />
+                      <div className="absolute inset-0 bg-[#fdfbf7]/30 mix-blend-overlay" />
                     </div>
 
-                    <p className={`leading-relaxed tracking-wide text-primary font-serif italic px-6 font-bold relative z-10 ${card.title === "Мисия" ? "text-[16px]" : "text-[18px]"}`} style={{ textShadow: "0 0 15px rgba(253, 251, 247, 0.9), 0 0 30px rgba(253, 251, 247, 0.5)" }}>
+                    <p className={`leading-relaxed tracking-wide text-primary font-serif italic px-6 font-bold relative z-10 ${card.title === "Мисия" ? "text-[16px]" : "text-[18px]"}`} style={{ textShadow: "0 0 10px rgba(253, 251, 247, 1), 0 0 20px rgba(253, 251, 247, 0.8), 1px 1px 2px rgba(0,0,0,0.1)" }}>
                       {card.back}
                     </p>
                   </div>
