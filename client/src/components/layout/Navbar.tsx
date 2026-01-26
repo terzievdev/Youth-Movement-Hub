@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import logo from "@/assets/logo.jpg";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -32,10 +33,23 @@ export function Navbar() {
       )}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <Link href="/">
-            <a className="text-2xl font-serif font-bold text-primary tracking-tighter">
-              Младежко<span className="text-accent">Движение</span>
+            <a className="flex items-center gap-3 group">
+              <img 
+                src={logo} 
+                alt="Logo" 
+                className={cn(
+                  "h-10 w-auto transition-all duration-300 rounded-lg",
+                  !isScrolled && "opacity-80 grayscale brightness-200 contrast-200"
+                )} 
+              />
+              <span className={cn(
+                "text-2xl font-serif font-bold tracking-tighter transition-colors duration-300",
+                isScrolled ? "text-primary" : "text-white"
+              )}>
+                NEXT GEN <span className="text-accent">BULGARIA</span>
+              </span>
             </a>
           </Link>
         </div>
@@ -55,7 +69,10 @@ export function Navbar() {
                 };
                 scrollToSection(idMap[item]);
               }}
-              className="group relative text-sm font-medium hover:text-accent transition-colors uppercase tracking-widest py-2"
+              className={cn(
+                "group relative text-sm font-medium transition-colors uppercase tracking-widest py-2",
+                isScrolled ? "text-foreground hover:text-accent" : "text-white/90 hover:text-white"
+              )}
             >
               {item}
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
@@ -65,7 +82,10 @@ export function Navbar() {
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden p-2 text-foreground"
+          className={cn(
+            "md:hidden p-2 transition-colors",
+            isScrolled ? "text-foreground" : "text-white"
+          )}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? <X /> : <Menu />}
