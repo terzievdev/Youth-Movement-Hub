@@ -58,8 +58,13 @@ export function JoinUs() {
               transition={{ delay: index * 0.1 }}
               className="flex"
             >
-              <div className="flex-1 p-8 rounded-[2.5rem] flex flex-col justify-between transition-all hover:scale-[1.02] shadow-xl bg-white/20 backdrop-blur-[12px] border border-white/30 group">
-                <div>
+              <div className="flex-1 p-8 rounded-[2.5rem] flex flex-col justify-between transition-all hover:scale-[1.02] shadow-xl bg-white/40 backdrop-blur-[12px] border border-white/40 group relative overflow-hidden">
+                {/* Subtle Background Asset */}
+                <div className="absolute top-[-10%] right-[-10%] w-32 h-32 opacity-[0.03] pointer-events-none group-hover:scale-110 transition-transform duration-700">
+                  {option.icon}
+                </div>
+                
+                <div className="relative z-10">
                   <div className="mb-6 text-primary group-hover:scale-110 transition-transform duration-300">{option.icon}</div>
                   <h3 className="text-2xl font-bold mb-3 font-serif text-primary">{option.title}</h3>
                   <p className="mb-8 opacity-90 leading-relaxed text-muted-foreground font-light text-[15px]">
@@ -68,7 +73,7 @@ export function JoinUs() {
                 </div>
                 <Button 
                   variant="ghost" 
-                  className="w-full justify-between group-hover:bg-primary/5 text-primary font-bold border border-primary/10 rounded-xl"
+                  className="w-full justify-between group-hover:bg-primary/5 text-primary font-bold border border-primary/10 rounded-xl relative z-10"
                 >
                   {option.action}
                   <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1 text-accent" />

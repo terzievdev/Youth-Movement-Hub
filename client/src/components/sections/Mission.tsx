@@ -76,11 +76,16 @@ export function Mission() {
 
                   {/* Back */}
                   <div 
-                    className="absolute inset-0 backface-hidden bg-white/95 backdrop-blur-[25px] rounded-[2.5rem] shadow-2xl p-10 flex flex-col items-center justify-center text-center text-primary border border-white/50"
+                    className="absolute inset-0 backface-hidden bg-white/95 backdrop-blur-[25px] rounded-[2.5rem] shadow-2xl p-10 flex flex-col items-center justify-center text-center text-primary border border-white/50 overflow-hidden"
                     style={{ transform: "rotateY(180deg)" }}
                   >
-                    <h3 className="text-3xl font-serif font-bold mb-6 text-primary tracking-widest uppercase">{card.title}</h3>
-                    <p className={`leading-relaxed tracking-wide text-primary font-serif italic px-2 font-bold ${card.title === "Мисия" ? "text-[14px]" : "text-[16px]"}`}>
+                    {/* Subtle Internal Pattern */}
+                    <div className="absolute inset-0 opacity-[0.03] pointer-events-none grayscale contrast-150">
+                       <img src={missionBg} className="w-full h-full object-cover" alt="Pattern" />
+                    </div>
+
+                    <h3 className="text-3xl font-serif font-bold mb-6 text-primary tracking-widest uppercase relative z-10">{card.title}</h3>
+                    <p className={`leading-relaxed tracking-wide text-primary font-serif italic px-2 font-bold relative z-10 ${card.title === "Мисия" ? "text-[14px]" : "text-[16px]"}`}>
                       {card.back}
                     </p>
                   </div>
