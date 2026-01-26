@@ -79,17 +79,17 @@ export function Mission() {
                     className="absolute inset-0 backface-hidden bg-[#fdfbf7] backdrop-blur-[25px] rounded-[2.5rem] shadow-2xl p-10 flex flex-col items-center justify-center text-center text-primary border border-[#e5d5c5]/50 overflow-hidden"
                     style={{ transform: "rotateY(180deg)" }}
                   >
-                    {/* Background Image - Adjusted for better visibility */}
+                    {/* Background Image - Very soft and elegant */}
                     <div className="absolute inset-0 z-0">
                       <img 
                         src={card.image} 
-                        className="w-full h-full object-cover opacity-[0.25] mix-blend-multiply" 
+                        className="w-full h-full object-cover opacity-[0.05] contrast-75 brightness-125 mix-blend-luminosity" 
                         alt="Thematic background" 
                       />
-                      <div className="absolute inset-0 bg-gradient-to-b from-[#fdfbf7]/80 via-[#fdfbf7]/40 to-[#fdfbf7]/80" />
+                      <div className="absolute inset-0 bg-gradient-to-tr from-[#fdfbf7]/90 via-[#fdfbf7]/60 to-[#fdfbf7]/90" />
                     </div>
 
-                    <p className={`leading-relaxed tracking-wide text-primary font-serif italic px-2 font-bold relative z-10 ${card.title === "Мисия" ? "text-[16px]" : "text-[18px]"}`}>
+                    <p className={`leading-relaxed tracking-wide text-primary font-serif italic px-6 font-bold relative z-10 ${card.title === "Мисия" ? "text-[16px]" : "text-[18px]"}`} style={{ textShadow: "0 1px 2px rgba(255,255,255,0.8)" }}>
                       {card.back}
                     </p>
                   </div>
