@@ -58,17 +58,17 @@ export function JoinUs() {
               transition={{ delay: index * 0.1 }}
               className="flex"
             >
-              <div className="flex-1 p-8 rounded-[2.5rem] flex flex-col justify-between transition-all hover:scale-[1.02] shadow-xl bg-[#1a1c1e]/60 backdrop-blur-[12px] border border-white/10 group">
+              <div className="flex-1 p-8 rounded-[2.5rem] flex flex-col justify-between transition-all hover:scale-[1.02] shadow-xl bg-[#2a2d30]/50 backdrop-blur-[12px] border border-white/20 group">
                 <div>
                   <div className="mb-6 text-accent group-hover:scale-110 transition-transform duration-300">{option.icon}</div>
                   <h3 className="text-2xl font-bold mb-3 font-serif text-white">{option.title}</h3>
-                  <p className="mb-8 opacity-70 leading-relaxed text-white/80 font-light">
+                  <p className="mb-8 opacity-80 leading-relaxed text-white/90 font-light text-[15px]">
                     {option.description}
                   </p>
                 </div>
                 <Button 
                   variant="ghost" 
-                  className="w-full justify-between group-hover:bg-white/10 text-white font-bold border border-white/10 rounded-xl"
+                  className="w-full justify-between group-hover:bg-white/10 text-white font-bold border border-white/20 rounded-xl"
                 >
                   {option.action}
                   <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1 text-accent" />

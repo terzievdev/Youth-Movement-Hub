@@ -70,17 +70,17 @@ export function Mission() {
                     </div>
                     <div className="flex-1 p-8 flex flex-col justify-center">
                       <h3 className="text-3xl font-serif font-bold text-primary mb-1">{card.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed">{card.frontText}</p>
+                      <p className="text-muted-foreground leading-relaxed text-[15px]">{card.frontText}</p>
                     </div>
                   </div>
 
                   {/* Back */}
                   <div 
-                    className="absolute inset-0 backface-hidden bg-white/90 backdrop-blur-[25px] rounded-[2.5rem] shadow-2xl p-10 flex flex-col items-center justify-center text-center text-primary border border-white/40"
+                    className="absolute inset-0 backface-hidden bg-white/95 backdrop-blur-[25px] rounded-[2.5rem] shadow-2xl p-10 flex flex-col items-center justify-center text-center text-primary border border-white/50"
                     style={{ transform: "rotateY(180deg)" }}
                   >
                     <h3 className="text-3xl font-serif font-bold mb-6 text-accent tracking-widest uppercase">{card.title}</h3>
-                    <p className="leading-relaxed text-lg font-medium tracking-wide text-primary/90 font-sans px-4">
+                    <p className="leading-relaxed text-[11px] font-semibold tracking-wide text-primary font-serif italic px-2">
                       {card.back}
                     </p>
                   </div>
