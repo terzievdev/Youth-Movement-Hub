@@ -80,7 +80,7 @@ export function Mission() {
                     style={{ transform: "rotateY(180deg)" }}
                   >
                     <h3 className="text-3xl font-serif font-bold mb-6 text-accent tracking-widest uppercase">{card.title}</h3>
-                    <p className="leading-relaxed text-xl font-light tracking-wide">
+                    <p className="leading-relaxed text-xl font-light tracking-wide italic">
                       {card.back}
                     </p>
                   </div>
