@@ -2,7 +2,8 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import missionBg from "@/assets/mission-bg.png";
 import missionImg from "@/assets/mission-card.png";
-import visionImg from "@/assets/vision-new.png";
+import visionImg from "@/assets/vision-card.png";
+import visionBackImg from "@/assets/vision-back-new.png";
 import sideImg from "@/assets/about-us-side.png";
 
 export function Mission() {
@@ -82,7 +83,7 @@ export function Mission() {
                     {/* Background Image - Significantly more visible */}
                     <div className="absolute inset-0 z-0">
                       <img 
-                        src={card.image} 
+                        src={card.title === "Визия" ? visionBackImg : card.image} 
                         className="w-full h-full object-cover opacity-[0.45] contrast-110 brightness-95" 
                         alt="Thematic background" 
                       />
