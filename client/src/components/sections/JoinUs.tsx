@@ -3,8 +3,8 @@ import { HandHeart, Users, Briefcase, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import missionBg from "@/assets/mission-bg.png";
 import volunteerBg from "@/assets/volunteer-bg-lux.png";
-import donationBg from "@/assets/donation-bg-lux.png";
-import partnershipBg from "@/assets/partnership-bg-lux.png";
+import donationBg from "@/assets/donation-coin.png";
+import partnershipBg from "@/assets/partnership-handshake.png";
 
 export function JoinUs() {
   const options = [
