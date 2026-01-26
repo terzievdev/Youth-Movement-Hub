@@ -2,9 +2,9 @@ import { Button } from "@/components/ui/button";
 import { HandHeart, Users, Briefcase, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import missionBg from "@/assets/mission-bg.png";
-import volunteerBg from "@/assets/volunteer-bg-lux.png";
-import donationBg from "@/assets/donation-coin.png";
-import partnershipBg from "@/assets/partnership-handshake.png";
+import volunteerBg from "@/assets/volunteer-bg-elite.png";
+import donationBg from "@/assets/donation-bg-gold.png";
+import partnershipBg from "@/assets/volunteer-bg-lux.png";
 
 export function JoinUs() {
   const options = [
@@ -84,7 +84,7 @@ export function JoinUs() {
                 </div>
                 <Button 
                   variant="ghost" 
-                  className="w-full justify-between group-hover:bg-primary/5 text-primary font-bold border border-primary/10 rounded-xl relative z-10"
+                  className="w-full justify-between bg-primary/5 hover:bg-primary hover:text-white text-primary font-bold border border-primary/20 rounded-xl relative z-10 transition-all duration-300 shadow-sm"
                 >
                   {option.action}
                   <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1 text-accent" />
