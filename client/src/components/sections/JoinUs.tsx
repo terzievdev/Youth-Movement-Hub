@@ -78,13 +78,13 @@ export function JoinUs() {
                 <div className="relative z-10">
                   <div className="mb-6 text-primary group-hover:scale-110 transition-transform duration-300">{option.icon}</div>
                   <h3 className="text-2xl font-bold mb-3 font-serif text-primary">{option.title}</h3>
-                  <p className="mb-8 opacity-90 leading-relaxed text-muted-foreground font-light text-[15px]">
+                  <p className="mb-8 opacity-100 leading-relaxed text-primary font-bold text-[15px]">
                     {option.description}
                   </p>
                 </div>
                 <Button 
                   variant="ghost" 
-                  className="w-full justify-between bg-primary/5 hover:bg-primary hover:text-white text-primary font-bold border border-primary/20 rounded-xl relative z-10 transition-all duration-300 shadow-sm"
+                  className="w-full justify-between bg-primary/10 hover:bg-primary hover:text-white text-primary font-bold border border-primary/30 rounded-xl relative z-10 transition-all duration-300 shadow-sm"
                 >
                   {option.action}
                   <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1 text-accent" />

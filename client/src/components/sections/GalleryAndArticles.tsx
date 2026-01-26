@@ -5,16 +5,30 @@ import gallery1 from "@/assets/gallery-1.png";
 import gallery2 from "@/assets/gallery-2.png";
 import gallery3 from "@/assets/gallery-3.png";
 import article1 from "@/assets/article-1.png";
-import { ArrowRight, X } from "lucide-react";
+import { ArrowRight, X, ChevronLeft, ChevronRight as ChevronRightIcon } from "lucide-react";
 
 export function GalleryAndArticles() {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
 
   const images = [
     { src: gallery1, className: "col-span-2 h-64" },
     { src: gallery2, className: "h-40" },
     { src: gallery3, className: "h-40" }
   ];
+
+  const handleNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (selectedImageIndex !== null) {
+      setSelectedImageIndex((selectedImageIndex + 1) % images.length);
+    }
+  };
+
+  const handlePrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (selectedImageIndex !== null) {
+      setSelectedImageIndex((selectedImageIndex - 1 + images.length) % images.length);
+    }
+  };
 
   return (
     <section className="py-24 relative overflow-hidden bg-background">
@@ -33,7 +47,7 @@ export function GalleryAndArticles() {
                 <motion.div 
                   key={idx}
                   whileHover={{ scale: 1.02 }}
-                  onClick={() => setSelectedImage(img.src)}
+                  onClick={() => setSelectedImageIndex(idx)}
                   className={`${img.className} rounded-3xl overflow-hidden shadow-lg border border-white/20 cursor-pointer`}
                 >
                   <img src={img.src} className="w-full h-full object-cover" alt={`Gallery ${idx + 1}`} />
@@ -41,8 +55,8 @@ export function GalleryAndArticles() {
               ))}
             </div>
           </div>
-
-          {/* Articles Section */}
+          
+          {/* ... existing Articles section ... */}
           <div id="articles">
             <h2 className="text-4xl font-serif font-bold text-primary mb-8">Статии</h2>
             <motion.div 
@@ -68,22 +82,42 @@ export function GalleryAndArticles() {
 
       {/* Lightbox */}
       <AnimatePresence>
-        {selectedImage && (
+        {selectedImageIndex !== null && (
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelectedImage(null)}
-            className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 backdrop-blur-sm"
+            onClick={() => setSelectedImageIndex(null)}
+            className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 backdrop-blur-md"
           >
-            <button className="absolute top-8 right-8 text-white hover:text-accent transition-colors">
-              <X size={32} />
+            <button 
+              className="absolute top-8 right-8 text-white hover:text-accent transition-colors z-[110]"
+              onClick={() => setSelectedImageIndex(null)}
+            >
+              <X size={40} />
             </button>
+
+            <button 
+              className="absolute left-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors bg-white/10 p-4 rounded-full backdrop-blur-md z-[110]"
+              onClick={handlePrev}
+            >
+              <ChevronLeft size={48} />
+            </button>
+
+            <button 
+              className="absolute right-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors bg-white/10 p-4 rounded-full backdrop-blur-md z-[110]"
+              onClick={handleNext}
+            >
+              <ChevronRightIcon size={48} />
+            </button>
+
             <motion.img 
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              src={selectedImage} 
-              className="max-w-full max-h-[90vh] rounded-2xl shadow-2xl"
+              key={selectedImageIndex}
+              initial={{ x: 100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -100, opacity: 0 }}
+              src={images[selectedImageIndex].src} 
+              className="max-w-[85vw] max-h-[85vh] rounded-2xl shadow-2xl object-contain"
               onClick={(e) => e.stopPropagation()}
             />
           </motion.div>
