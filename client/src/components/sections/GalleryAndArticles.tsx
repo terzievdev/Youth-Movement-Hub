@@ -1,12 +1,21 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import missionBg from "@/assets/mission-bg.png";
 import gallery1 from "@/assets/gallery-1.png";
 import gallery2 from "@/assets/gallery-2.png";
 import gallery3 from "@/assets/gallery-3.png";
 import article1 from "@/assets/article-1.png";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, X } from "lucide-react";
 
 export function GalleryAndArticles() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const images = [
+    { src: gallery1, className: "col-span-2 h-64" },
+    { src: gallery2, className: "h-40" },
+    { src: gallery3, className: "h-40" }
+  ];
+
   return (
     <section className="py-24 relative overflow-hidden bg-background">
       {/* Background Image Overlay */}
@@ -20,24 +29,16 @@ export function GalleryAndArticles() {
           <div id="gallery">
             <h2 className="text-4xl font-serif font-bold text-primary mb-8">Галерия</h2>
             <div className="grid grid-cols-2 gap-4">
-              <motion.div 
-                whileHover={{ scale: 1.02 }}
-                className="col-span-2 h-64 rounded-3xl overflow-hidden shadow-lg border border-white/20"
-              >
-                <img src={gallery1} className="w-full h-full object-cover" alt="Gallery 1" />
-              </motion.div>
-              <motion.div 
-                whileHover={{ scale: 1.02 }}
-                className="h-40 rounded-3xl overflow-hidden shadow-lg border border-white/20"
-              >
-                <img src={gallery2} className="w-full h-full object-cover" alt="Gallery 2" />
-              </motion.div>
-              <motion.div 
-                whileHover={{ scale: 1.02 }}
-                className="h-40 rounded-3xl overflow-hidden shadow-lg border border-white/20"
-              >
-                <img src={gallery3} className="w-full h-full object-cover" alt="Gallery 3" />
-              </motion.div>
+              {images.map((img, idx) => (
+                <motion.div 
+                  key={idx}
+                  whileHover={{ scale: 1.02 }}
+                  onClick={() => setSelectedImage(img.src)}
+                  className={`${img.className} rounded-3xl overflow-hidden shadow-lg border border-white/20 cursor-pointer`}
+                >
+                  <img src={img.src} className="w-full h-full object-cover" alt={`Gallery ${idx + 1}`} />
+                </motion.div>
+              ))}
             </div>
           </div>
 
@@ -64,6 +65,30 @@ export function GalleryAndArticles() {
           </div>
         </div>
       </div>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 backdrop-blur-sm"
+          >
+            <button className="absolute top-8 right-8 text-white hover:text-accent transition-colors">
+              <X size={32} />
+            </button>
+            <motion.img 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              src={selectedImage} 
+              className="max-w-full max-h-[90vh] rounded-2xl shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

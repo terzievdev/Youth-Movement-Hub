@@ -32,11 +32,10 @@ export function Hero() {
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-left"
+            className="text-left md:pl-8 lg:pl-16"
           >
-            <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight drop-shadow-lg">
-              Време е за <br />
-              <span className="italic text-accent">промяна</span>
+            <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-8 leading-tight drop-shadow-lg whitespace-nowrap">
+              Време е за <span className="italic text-accent">промяна</span>
             </h1>
             <p className="text-lg md:text-xl text-white/90 max-w-xl mb-10 font-light leading-relaxed">
               Изграждаме общност от млади лидери, готови да променят света. 

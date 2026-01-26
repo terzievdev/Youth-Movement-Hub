@@ -76,11 +76,11 @@ export function Mission() {
 
                   {/* Back */}
                   <div 
-                    className="absolute inset-0 backface-hidden bg-black/70 backdrop-blur-[20px] rounded-[2.5rem] shadow-2xl p-10 flex flex-col items-center justify-center text-center text-white border border-white/10"
+                    className="absolute inset-0 backface-hidden bg-white/90 backdrop-blur-[25px] rounded-[2.5rem] shadow-2xl p-10 flex flex-col items-center justify-center text-center text-primary border border-white/40"
                     style={{ transform: "rotateY(180deg)" }}
                   >
                     <h3 className="text-3xl font-serif font-bold mb-6 text-accent tracking-widest uppercase">{card.title}</h3>
-                    <p className="leading-relaxed text-xl font-light tracking-wide italic">
+                    <p className="leading-relaxed text-lg font-medium tracking-wide text-primary/90 font-sans px-4">
                       {card.back}
                     </p>
                   </div>

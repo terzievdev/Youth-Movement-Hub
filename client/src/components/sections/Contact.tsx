@@ -111,10 +111,10 @@ export function Contact() {
             {/* Real Interactive Map with specific address and custom pin look */}
             <div className="h-[350px] lg:w-[450px] rounded-[2rem] overflow-hidden shadow-xl border border-border/30 transition-all duration-700">
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11729.287095010112!2d23.34842777647233!3d42.69741217116484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa85f8f5b8f5b5%3A0x78395ad9d44800!2sul.%20%22Aleksandar%20Zhendov%22%206%2C%201113%20g.k.%20Yavorov%2C%20Sofia!5e0!3m2!1sen!2sbg!4v1716385000000!5m2!1sen!2sbg&marker=42.697412,23.348427" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5864.643547505056!2d23.34842777647233!3d42.69741217116484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa85f8f5b8f5b5%3A0x78395ad9d44800!2sul.%20%22Aleksandar%20Zhendov%22%206%2C%201113%20g.k.%20Yavorov%2C%20Sofia!5e0!3m2!1sen!2sbg!4v1716385000000!5m2!1sen!2sbg&q=42.697412,23.348427" 
                 width="100%" 
                 height="100%" 
-                style={{ border: 0, filter: 'grayscale(0.2) contrast(1.1)' }} 
+                style={{ border: 0 }} 
                 allowFullScreen={true} 
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade"
