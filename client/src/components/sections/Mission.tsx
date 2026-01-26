@@ -70,21 +70,20 @@ export function Mission() {
                     </div>
                     <div className="flex-1 p-8 flex flex-col justify-center">
                       <h3 className="text-3xl font-serif font-bold text-primary mb-1">{card.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed text-[15px]">{card.frontText}</p>
+                      <p className="text-primary leading-relaxed text-[16px] font-bold italic">{card.frontText}</p>
                     </div>
                   </div>
 
                   {/* Back */}
                   <div 
-                    className="absolute inset-0 backface-hidden bg-white/90 backdrop-blur-[25px] rounded-[2.5rem] shadow-2xl p-10 flex flex-col items-center justify-center text-center text-primary border border-white/50 overflow-hidden"
+                    className="absolute inset-0 backface-hidden bg-[#fdfbf7] backdrop-blur-[25px] rounded-[2.5rem] shadow-2xl p-10 flex flex-col items-center justify-center text-center text-primary border border-[#e5d5c5]/50 overflow-hidden"
                     style={{ transform: "rotateY(180deg)" }}
                   >
                     {/* Subtle Internal Pattern */}
-                    <div className="absolute inset-0 opacity-[0.05] pointer-events-none grayscale contrast-150">
+                    <div className="absolute inset-0 opacity-[0.08] pointer-events-none grayscale contrast-125 mix-blend-multiply">
                        <img src={missionBg} className="w-full h-full object-cover" alt="Pattern" />
                     </div>
 
-                    <h3 className="text-3xl font-serif font-bold mb-6 text-primary tracking-widest uppercase relative z-10">{card.title}</h3>
                     <p className={`leading-relaxed tracking-wide text-primary font-serif italic px-2 font-bold relative z-10 ${card.title === "Мисия" ? "text-[15px]" : "text-[17px]"}`}>
                       {card.back}
                     </p>
