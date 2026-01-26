@@ -83,13 +83,13 @@ export function Mission() {
                     <div className="absolute inset-0 z-0">
                       <img 
                         src={card.image} 
-                        className="w-full h-full object-cover opacity-[0.07] grayscale" 
+                        className="w-full h-full object-cover opacity-[0.12] grayscale contrast-125" 
                         alt="Thematic background" 
                       />
-                      <div className="absolute inset-0 bg-[#fdfbf7]/40 mix-blend-overlay" />
+                      <div className="absolute inset-0 bg-gradient-to-b from-[#fdfbf7]/60 via-transparent to-[#fdfbf7]/60" />
                     </div>
 
-                    <p className={`leading-relaxed tracking-wide text-primary font-serif italic px-2 font-bold relative z-10 ${card.title === "Мисия" ? "text-[16px]" : "text-[18px]"}`}>
+                    <p className={`leading-relaxed tracking-wide text-primary font-sans italic px-4 font-bold relative z-10 ${card.title === "Мисия" ? "text-[18px]" : "text-[20px]"}`} style={{ fontFamily: "'Unbounded', sans-serif", textShadow: "0 0 20px rgba(253, 251, 247, 0.8)" }}>
                       {card.back}
                     </p>
                   </div>
