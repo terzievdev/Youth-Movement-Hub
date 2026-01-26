@@ -1,3 +1,4 @@
+import { fetchBlogs, fetchBlogBySlug, fetchMeetings, fetchGalleries } from "./sanity";
 import { type Blog, type Meeting, type Gallery } from "@shared/schema";
 
 export interface IStorage {
@@ -7,22 +8,22 @@ export interface IStorage {
   getGalleries(): Promise<Gallery[]>;
 }
 
-export class MemStorage implements IStorage {
+export class SanityStorage implements IStorage {
   async getBlogs(): Promise<Blog[]> {
-    return [];
+    return fetchBlogs();
   }
 
   async getBlogBySlug(slug: string): Promise<Blog | undefined> {
-    return undefined;
+    return fetchBlogBySlug(slug);
   }
 
   async getMeetings(): Promise<Meeting[]> {
-    return [];
+    return fetchMeetings();
   }
 
   async getGalleries(): Promise<Gallery[]> {
-    return [];
+    return fetchGalleries();
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new SanityStorage();

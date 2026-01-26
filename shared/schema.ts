@@ -4,7 +4,7 @@ export const blogSchema = z.object({
   _id: z.string(),
   _type: z.literal("blog"),
   title: z.string(),
-  slug: z.object({ current: z.string() }),
+  slug: z.string(),
   mainImage: z.object({
     asset: z.object({ _ref: z.string() }),
     alt: z.string().optional(),
@@ -22,20 +22,19 @@ export const meetingSchema = z.object({
   description: z.string().optional(),
 });
 
+export const galleryImageSchema = z.object({
+  asset: z.object({ _ref: z.string() }),
+  caption: z.string().optional(),
+});
+
 export const gallerySchema = z.object({
   _id: z.string(),
   _type: z.literal("gallery"),
   title: z.string(),
-  images: z.array(z.object({
-    asset: z.object({ _ref: z.string() }),
-    caption: z.string().optional(),
-  })),
+  images: z.array(galleryImageSchema),
 });
 
 export type Blog = z.infer<typeof blogSchema>;
 export type Meeting = z.infer<typeof meetingSchema>;
 export type Gallery = z.infer<typeof gallerySchema>;
-
-export type InsertBlog = Omit<Blog, "_id">;
-export type InsertMeeting = Omit<Meeting, "_id">;
-export type InsertGallery = Omit<Gallery, "_id">;
+export type GalleryImage = z.infer<typeof galleryImageSchema>;
