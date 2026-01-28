@@ -1,11 +1,334 @@
 import { Button } from "@/components/ui/button";
-import { HandHeart, Briefcase, ChevronRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { HandHeart, Briefcase, ChevronRight, X, Check } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import missionBg from "@/assets/mission-bg.png";
 import donationBg from "@/assets/donation-bg-gold.png";
 import partnershipBg from "@/assets/volunteer-bg-lux.png";
 
+function FloatingInput({ 
+  label, 
+  type = "text", 
+  value, 
+  onChange, 
+  required = false 
+}: { 
+  label: string; 
+  type?: string; 
+  value: string; 
+  onChange: (val: string) => void;
+  required?: boolean;
+}) {
+  const [focused, setFocused] = useState(false);
+  const isActive = focused || value.length > 0;
+
+  return (
+    <div className="relative">
+      <input
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        required={required}
+        className="w-full px-4 pt-6 pb-2 bg-white/80 border border-gray-200 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 text-primary"
+        placeholder=" "
+      />
+      <label 
+        className={`absolute left-4 transition-all duration-300 pointer-events-none ${
+          isActive 
+            ? "top-2 text-xs text-primary font-medium" 
+            : "top-1/2 -translate-y-1/2 text-gray-400"
+        }`}
+      >
+        {label}
+      </label>
+    </div>
+  );
+}
+
+function FloatingSelect({ 
+  label, 
+  value, 
+  onChange, 
+  options 
+}: { 
+  label: string; 
+  value: string; 
+  onChange: (val: string) => void;
+  options: { value: string; label: string }[];
+}) {
+  const isActive = value.length > 0;
+
+  return (
+    <div className="relative">
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full px-4 pt-6 pb-2 bg-white/80 border border-gray-200 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 text-primary appearance-none cursor-pointer"
+      >
+        <option value="" disabled></option>
+        {options.map((opt) => (
+          <option key={opt.value} value={opt.value}>{opt.label}</option>
+        ))}
+      </select>
+      <label 
+        className={`absolute left-4 transition-all duration-300 pointer-events-none ${
+          isActive 
+            ? "top-2 text-xs text-primary font-medium" 
+            : "top-1/2 -translate-y-1/2 text-gray-400"
+        }`}
+      >
+        {label}
+      </label>
+      <ChevronRight className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 rotate-90 pointer-events-none" />
+    </div>
+  );
+}
+
+function FloatingTextarea({ 
+  label, 
+  value, 
+  onChange 
+}: { 
+  label: string; 
+  value: string; 
+  onChange: (val: string) => void;
+}) {
+  const [focused, setFocused] = useState(false);
+  const isActive = focused || value.length > 0;
+
+  return (
+    <div className="relative">
+      <textarea
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        rows={4}
+        className="w-full px-4 pt-6 pb-2 bg-white/80 border border-gray-200 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 text-primary resize-none"
+        placeholder=" "
+      />
+      <label 
+        className={`absolute left-4 transition-all duration-300 pointer-events-none ${
+          isActive 
+            ? "top-2 text-xs text-primary font-medium" 
+            : "top-4 text-gray-400"
+        }`}
+      >
+        {label}
+      </label>
+    </div>
+  );
+}
+
+function PartnerDrawer({ 
+  isOpen, 
+  onClose 
+}: { 
+  isOpen: boolean; 
+  onClose: () => void;
+}) {
+  const [name, setName] = useState("");
+  const [organization, setOrganization] = useState("");
+  const [email, setEmail] = useState("");
+  const [partnerType, setPartnerType] = useState("");
+  const [message, setMessage] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const partnershipTypes = [
+    { value: "corporate", label: "Корпоративно партньорство" },
+    { value: "ngo", label: "НПО / Организация" },
+    { value: "media", label: "Медийно партньорство" },
+    { value: "educational", label: "Образователна институция" },
+    { value: "other", label: "Друго" }
+  ];
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    setIsSubmitting(false);
+    setIsSubmitted(true);
+  };
+
+  const handleClose = () => {
+    onClose();
+    setTimeout(() => {
+      setName("");
+      setOrganization("");
+      setEmail("");
+      setPartnerType("");
+      setMessage("");
+      setIsSubmitted(false);
+    }, 300);
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={handleClose}
+            className="fixed inset-0 z-[100] bg-black/40 backdrop-blur-md"
+          />
+          
+          <motion.div
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", damping: 30, stiffness: 300 }}
+            className="fixed right-0 top-0 h-full w-full max-w-lg z-[101] bg-gradient-to-br from-white via-gray-50 to-white shadow-2xl overflow-y-auto"
+          >
+            <div className="p-8 md:p-10 min-h-full flex flex-col">
+              <div className="flex items-center justify-between mb-8">
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-serif font-bold text-primary">Стани Партньор</h2>
+                  <p className="text-muted-foreground mt-1">Нека изградим нещо заедно</p>
+                </div>
+                <button
+                  onClick={handleClose}
+                  className="p-2 rounded-full hover:bg-gray-100 transition-colors group"
+                  data-testid="drawer-close-button"
+                >
+                  <X className="w-6 h-6 text-gray-400 group-hover:text-primary transition-colors" />
+                </button>
+              </div>
+
+              <AnimatePresence mode="wait">
+                {!isSubmitted ? (
+                  <motion.form
+                    key="form"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    onSubmit={handleSubmit}
+                    className="flex-1 flex flex-col space-y-5"
+                  >
+                    <FloatingInput
+                      label="Вашето име"
+                      value={name}
+                      onChange={setName}
+                      required
+                    />
+                    
+                    <FloatingInput
+                      label="Организация"
+                      value={organization}
+                      onChange={setOrganization}
+                      required
+                    />
+                    
+                    <FloatingInput
+                      label="Имейл адрес"
+                      type="email"
+                      value={email}
+                      onChange={setEmail}
+                      required
+                    />
+                    
+                    <FloatingSelect
+                      label="Тип партньорство"
+                      value={partnerType}
+                      onChange={setPartnerType}
+                      options={partnershipTypes}
+                    />
+                    
+                    <FloatingTextarea
+                      label="Вашето съобщение"
+                      value={message}
+                      onChange={setMessage}
+                    />
+
+                    <div className="pt-4 mt-auto">
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full py-4 px-6 bg-[#1a1a2e] hover:bg-[#16213e] text-white font-bold rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                        data-testid="partner-submit-button"
+                      >
+                        {isSubmitting ? (
+                          <motion.div
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                            className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
+                          />
+                        ) : (
+                          "Изпрати запитване"
+                        )}
+                      </button>
+                    </div>
+                  </motion.form>
+                ) : (
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="flex-1 flex flex-col items-center justify-center text-center"
+                  >
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", damping: 15, stiffness: 300, delay: 0.1 }}
+                      className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-green-500/30"
+                    >
+                      <motion.div
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{ duration: 0.5, delay: 0.3 }}
+                      >
+                        <Check className="w-10 h-10 text-white" strokeWidth={3} />
+                      </motion.div>
+                    </motion.div>
+                    
+                    <motion.h3
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4 }}
+                      className="text-2xl font-serif font-bold text-primary mb-3"
+                    >
+                      Благодарим ви!
+                    </motion.h3>
+                    
+                    <motion.p
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5 }}
+                      className="text-muted-foreground max-w-xs"
+                    >
+                      Ще се свържем с вас възможно най-скоро, за да обсъдим партньорството.
+                    </motion.p>
+
+                    <motion.button
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.7 }}
+                      onClick={handleClose}
+                      className="mt-8 px-8 py-3 bg-gray-100 hover:bg-gray-200 text-primary font-medium rounded-xl transition-all duration-300"
+                    >
+                      Затвори
+                    </motion.button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+}
+
 export function JoinUs() {
+  const [isPartnerDrawerOpen, setIsPartnerDrawerOpen] = useState(false);
+
   const options = [
     {
       id: "donate",
@@ -13,7 +336,8 @@ export function JoinUs() {
       icon: <HandHeart className="w-10 h-10" />,
       description: "Подкрепи нашите инициативи финансово. Всяка помощ е от значение за бъдещето на младежите в България.",
       action: "Дари сега",
-      image: donationBg
+      image: donationBg,
+      onClick: () => {}
     },
     {
       id: "partner",
@@ -21,7 +345,8 @@ export function JoinUs() {
       icon: <Briefcase className="w-10 h-10" />,
       description: "Бизнес или организация? Нека обединим усилия за по-голямо въздействие и устойчива промяна.",
       action: "Свържи се",
-      image: partnershipBg
+      image: partnershipBg,
+      onClick: () => setIsPartnerDrawerOpen(true)
     }
   ];
 
@@ -72,7 +397,9 @@ export function JoinUs() {
                 </div>
                 <Button 
                   variant="ghost" 
+                  onClick={option.onClick}
                   className="w-full justify-between bg-primary/10 hover:bg-primary hover:text-white text-primary font-bold border border-primary/30 rounded-xl relative z-10 transition-all duration-300 shadow-sm py-6 text-base"
+                  data-testid={`card-button-${option.id}`}
                 >
                   {option.action}
                   <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1 text-accent" />
@@ -82,6 +409,11 @@ export function JoinUs() {
           ))}
         </div>
       </div>
+
+      <PartnerDrawer 
+        isOpen={isPartnerDrawerOpen} 
+        onClose={() => setIsPartnerDrawerOpen(false)} 
+      />
     </section>
   );
 }
