@@ -49,7 +49,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="lg:justify-self-end w-full max-w-md"
           >
-            <div className="bg-white/2 backdrop-blur-xl border border-white/5 p-8 rounded-3xl shadow-2xl">
+            <div className="bg-white/10 backdrop-blur-2xl border border-white/15 p-8 rounded-3xl shadow-2xl">
               <div className="flex items-center gap-3 mb-6">
                 <Calendar className="text-accent w-6 h-6" />
                 <h3 className="text-xl font-serif font-bold text-white uppercase tracking-wider">Предстоящи събития</h3>
