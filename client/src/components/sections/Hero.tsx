@@ -54,23 +54,23 @@ export function Hero() {
                 <Calendar className="text-[#D4AF37] w-6 h-6" />
                 <h3 className="text-lg font-serif font-bold text-white uppercase tracking-[0.25em]">Предстоящи събития</h3>
               </div>
-              <div className="space-y-8">
+              <div className="space-y-6">
                 {events.map((event, i) => (
                   <motion.div 
                     key={i} 
-                    className="group cursor-pointer p-4 -mx-4 rounded-2xl transition-all duration-500 hover:bg-white/[0.06] hover:shadow-lg hover:shadow-[#D4AF37]/5"
+                    className="group cursor-pointer py-5 px-5 -mx-5 rounded-2xl transition-all duration-500 hover:bg-white/[0.06] hover:shadow-lg hover:shadow-[#D4AF37]/5"
                     whileHover={{ y: -2 }}
                   >
-                    <div className="flex justify-between items-center mb-2">
+                    <div className="flex justify-between items-center mb-3">
                       <p className="text-[#D4AF37] text-sm font-serif font-semibold tracking-[0.15em] uppercase">{event.date}</p>
-                      <p className="text-white/40 text-xs font-mono tracking-wider">{event.time}</p>
+                      <p className="text-[#D4AF37]/60 text-xs font-mono tracking-[0.1em]">{event.time}</p>
                     </div>
-                    <p className="text-white text-lg font-light tracking-wide group-hover:text-white/90 transition-colors duration-300">{event.title}</p>
+                    <p className="text-white text-lg font-light tracking-wide group-hover:text-white transition-colors duration-300" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.3)' }}>{event.title}</p>
                   </motion.div>
                 ))}
               </div>
               <motion.button 
-                className="w-full mt-10 py-4 rounded-full border border-[#D4AF37]/40 text-[#D4AF37] text-sm font-medium uppercase tracking-[0.2em] bg-transparent relative overflow-hidden group transition-all duration-500 hover:border-[#D4AF37] hover:shadow-lg hover:shadow-[#D4AF37]/10"
+                className="w-full mt-10 py-4 rounded-full border border-[#D4AF37]/40 text-[#D4AF37] text-sm font-medium uppercase tracking-[0.3em] bg-transparent relative overflow-hidden group transition-all duration-500 hover:border-[#D4AF37] hover:shadow-lg hover:shadow-[#D4AF37]/10"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
