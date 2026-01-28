@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { HandHeart, Briefcase, ChevronRight, X, Check } from "lucide-react";
+import { HandHeart, Briefcase, ChevronRight, X, Check, Copy, Shield, CreditCard } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import missionBg from "@/assets/mission-bg.png";
 import donationBg from "@/assets/donation-bg-gold.png";
 import partnershipBg from "@/assets/volunteer-bg-lux.png";
@@ -122,6 +122,181 @@ function FloatingTextarea({
   );
 }
 
+function DonationModal({ 
+  isOpen, 
+  onClose 
+}: { 
+  isOpen: boolean; 
+  onClose: () => void;
+}) {
+  const [copied, setCopied] = useState(false);
+  const IBAN = "BG80 BNBG 9661 1020 3456 78";
+
+  const handleCopyIBAN = async () => {
+    await navigator.clipboard.writeText(IBAN.replace(/\s/g, ""));
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    if (isOpen) {
+      document.addEventListener("keydown", handleEsc);
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.removeEventListener("keydown", handleEsc);
+      document.body.style.overflow = "";
+    };
+  }, [isOpen, onClose]);
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={onClose}
+            className="fixed inset-0 z-[100] bg-black/50 backdrop-blur-md"
+          />
+          
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            className="fixed inset-0 z-[101] flex items-center justify-center p-4 pointer-events-none"
+          >
+            <div 
+              className="bg-white rounded-3xl shadow-2xl w-full max-w-md pointer-events-auto relative overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Background decoration */}
+              <div className="absolute inset-0 z-0 overflow-hidden">
+                <img 
+                  src={donationBg} 
+                  className="w-full h-full object-cover opacity-[0.08] scale-150" 
+                  alt="" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-white via-white/95 to-white" />
+              </div>
+
+              <div className="relative z-10 p-8">
+                {/* Header */}
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <h2 className="text-2xl font-serif font-bold text-primary">Направи Дарение</h2>
+                    <p className="text-muted-foreground text-sm mt-1">Подкрепи нашата кауза</p>
+                  </div>
+                  <button
+                    onClick={onClose}
+                    className="p-2 rounded-full hover:bg-gray-100 transition-colors group"
+                    data-testid="donation-close-button"
+                  >
+                    <X className="w-5 h-5 text-gray-400 group-hover:text-primary transition-colors" />
+                  </button>
+                </div>
+
+                {/* Bank Transfer Section */}
+                <div className="mb-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <CreditCard className="w-4 h-4 text-primary" />
+                    </div>
+                    <h3 className="font-semibold text-primary">Банков превод</h3>
+                  </div>
+                  
+                  <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100">
+                    <p className="text-xs text-muted-foreground mb-2 uppercase tracking-wide font-medium">IBAN</p>
+                    <div className="flex items-center justify-between gap-3">
+                      <code className="font-mono text-lg text-primary tracking-wider font-medium">
+                        {IBAN}
+                      </code>
+                      <div className="relative">
+                        <button
+                          onClick={handleCopyIBAN}
+                          className="p-2.5 bg-white rounded-xl border border-gray-200 hover:border-primary hover:bg-primary/5 transition-all duration-300 group"
+                          data-testid="copy-iban-button"
+                        >
+                          {copied ? (
+                            <Check className="w-4 h-4 text-green-500" />
+                          ) : (
+                            <Copy className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors" />
+                          )}
+                        </button>
+                        <AnimatePresence>
+                          {copied && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 5 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -5 }}
+                              className="absolute -top-10 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs px-3 py-1.5 rounded-lg whitespace-nowrap"
+                            >
+                              Копирано!
+                              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rotate-45 w-2 h-2 bg-gray-900" />
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-3">
+                      Получател: Сдружение "Младежко Движение"
+                    </p>
+                  </div>
+                </div>
+
+                {/* Card Payment Section - Coming Soon */}
+                <div className="mb-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                      <CreditCard className="w-4 h-4 text-gray-400" />
+                    </div>
+                    <h3 className="font-semibold text-gray-400">Картово плащане</h3>
+                    <span className="ml-auto text-xs bg-gray-100 text-gray-500 px-2.5 py-1 rounded-full font-medium">
+                      Очаквайте скоро
+                    </span>
+                  </div>
+                  
+                  <div className="bg-gray-50/50 rounded-2xl p-5 border border-gray-100">
+                    <div className="flex items-center justify-center gap-6 opacity-40 grayscale">
+                      {/* Visa */}
+                      <div className="flex items-center justify-center w-16 h-10 bg-white rounded-lg border border-gray-200 shadow-sm">
+                        <span className="text-[#1A1F71] font-bold text-sm italic tracking-tight">VISA</span>
+                      </div>
+                      {/* Mastercard */}
+                      <div className="flex items-center justify-center w-16 h-10 bg-white rounded-lg border border-gray-200 shadow-sm">
+                        <div className="flex">
+                          <div className="w-4 h-4 bg-[#EB001B] rounded-full" />
+                          <div className="w-4 h-4 bg-[#F79E1B] rounded-full -ml-1.5" />
+                        </div>
+                      </div>
+                      {/* Apple Pay */}
+                      <div className="flex items-center justify-center w-16 h-10 bg-white rounded-lg border border-gray-200 shadow-sm">
+                        <span className="text-black font-semibold text-xs"> Pay</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Security Badge */}
+                <div className="flex items-center justify-center gap-2 pt-4 border-t border-gray-100">
+                  <Shield className="w-4 h-4 text-green-600" />
+                  <span className="text-xs text-muted-foreground">Сигурно и криптирано</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+}
+
 function PartnerDrawer({ 
   isOpen, 
   onClose 
@@ -144,6 +319,20 @@ function PartnerDrawer({
     { value: "educational", label: "Образователна институция" },
     { value: "other", label: "Друго" }
   ];
+
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    if (isOpen) {
+      document.addEventListener("keydown", handleEsc);
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.removeEventListener("keydown", handleEsc);
+      document.body.style.overflow = "";
+    };
+  }, [isOpen, onClose]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -185,9 +374,19 @@ function PartnerDrawer({
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
-            className="fixed right-0 top-0 h-full w-full max-w-lg z-[101] bg-gradient-to-br from-white via-gray-50 to-white shadow-2xl overflow-y-auto"
+            className="fixed right-0 top-0 h-full w-full max-w-lg z-[101] bg-white shadow-2xl overflow-y-auto"
           >
-            <div className="p-8 md:p-10 min-h-full flex flex-col">
+            {/* Background decoration */}
+            <div className="absolute inset-0 z-0 overflow-hidden">
+              <img 
+                src={partnershipBg} 
+                className="w-full h-full object-cover opacity-[0.06] scale-125" 
+                alt="" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50/95 to-white" />
+            </div>
+
+            <div className="p-8 md:p-10 min-h-full flex flex-col relative z-10">
               <div className="flex items-center justify-between mb-8">
                 <div>
                   <h2 className="text-2xl md:text-3xl font-serif font-bold text-primary">Стани Партньор</h2>
@@ -328,6 +527,7 @@ function PartnerDrawer({
 
 export function JoinUs() {
   const [isPartnerDrawerOpen, setIsPartnerDrawerOpen] = useState(false);
+  const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
 
   const options = [
     {
@@ -337,7 +537,7 @@ export function JoinUs() {
       description: "Подкрепи нашите инициативи финансово. Всяка помощ е от значение за бъдещето на младежите в България.",
       action: "Дари сега",
       image: donationBg,
-      onClick: () => {}
+      onClick: () => setIsDonationModalOpen(true)
     },
     {
       id: "partner",
@@ -409,6 +609,11 @@ export function JoinUs() {
           ))}
         </div>
       </div>
+
+      <DonationModal 
+        isOpen={isDonationModalOpen} 
+        onClose={() => setIsDonationModalOpen(false)} 
+      />
 
       <PartnerDrawer 
         isOpen={isPartnerDrawerOpen} 
