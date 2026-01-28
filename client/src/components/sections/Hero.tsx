@@ -49,26 +49,35 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="lg:justify-self-end w-full max-w-md"
           >
-            <div className="bg-white/10 backdrop-blur-2xl border border-white/15 p-8 rounded-3xl shadow-2xl">
-              <div className="flex items-center gap-3 mb-6">
-                <Calendar className="text-accent w-6 h-6" />
-                <h3 className="text-xl font-serif font-bold text-white uppercase tracking-wider">Предстоящи събития</h3>
+            <div className="bg-white/[0.08] backdrop-blur-[15px] border-[0.5px] border-white/20 p-10 rounded-3xl shadow-2xl">
+              <div className="flex items-center gap-3 mb-10">
+                <Calendar className="text-[#D4AF37] w-6 h-6" />
+                <h3 className="text-lg font-serif font-bold text-white uppercase tracking-[0.25em]">Предстоящи събития</h3>
               </div>
-              <div className="space-y-6">
+              <div className="space-y-8">
                 {events.map((event, i) => (
-                  <div key={i} className="group cursor-pointer">
-                    <div className="flex justify-between items-center mb-1">
-                      <p className="text-accent text-sm font-bold">{event.date}</p>
-                      <p className="text-white/60 text-xs font-mono">{event.time}</p>
+                  <motion.div 
+                    key={i} 
+                    className="group cursor-pointer p-4 -mx-4 rounded-2xl transition-all duration-500 hover:bg-white/[0.06] hover:shadow-lg hover:shadow-[#D4AF37]/5"
+                    whileHover={{ y: -2 }}
+                  >
+                    <div className="flex justify-between items-center mb-2">
+                      <p className="text-[#D4AF37] text-sm font-serif font-semibold tracking-[0.15em] uppercase">{event.date}</p>
+                      <p className="text-white/40 text-xs font-mono tracking-wider">{event.time}</p>
                     </div>
-                    <p className="text-white text-lg font-medium group-hover:text-accent transition-colors">{event.title}</p>
-                    <div className="w-full h-px bg-white/10 mt-4 group-last:hidden" />
-                  </div>
+                    <p className="text-white text-lg font-light tracking-wide group-hover:text-white/90 transition-colors duration-300">{event.title}</p>
+                  </motion.div>
                 ))}
               </div>
-              <button className="w-full mt-8 py-3 rounded-full border border-white/20 text-white text-sm font-bold hover:bg-white hover:text-primary transition-all uppercase tracking-widest">
-                Виж всички
-              </button>
+              <motion.button 
+                className="w-full mt-10 py-4 rounded-full border border-[#D4AF37]/40 text-[#D4AF37] text-sm font-medium uppercase tracking-[0.2em] bg-transparent relative overflow-hidden group transition-all duration-500 hover:border-[#D4AF37] hover:shadow-lg hover:shadow-[#D4AF37]/10"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span className="relative z-10 group-hover:text-white transition-colors duration-500">Виж всички</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#D4AF37]/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+                <div className="absolute inset-0 bg-[#D4AF37]/0 group-hover:bg-[#D4AF37]/80 transition-all duration-500 -z-0" />
+              </motion.button>
             </div>
           </motion.div>
         </div>
