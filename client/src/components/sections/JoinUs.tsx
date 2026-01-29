@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { HandHeart, Briefcase, ChevronRight, X, Check, Copy, Shield, CreditCard } from "lucide-react";
+import { HandHeart, Briefcase, ChevronRight, X, Check, Copy, Shield, Landmark } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import missionBg from "@/assets/mission-bg.png";
@@ -203,30 +203,30 @@ function DonationModal({
                 </div>
 
                 {/* Bank Transfer Section */}
-                <div className="mb-6">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                      <CreditCard className="w-4 h-4 text-primary" />
+                <div className="mb-8">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
+                      <Landmark className="w-5 h-5 text-primary" />
                     </div>
-                    <h3 className="font-semibold text-primary">Банков превод</h3>
+                    <h3 className="font-serif font-semibold text-primary text-lg">Банков превод</h3>
                   </div>
                   
-                  <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100">
-                    <p className="text-xs text-muted-foreground mb-2 uppercase tracking-wide font-medium">IBAN</p>
-                    <div className="flex items-center justify-between gap-3">
-                      <code className="font-mono text-lg text-primary tracking-wider font-medium">
+                  <div className="bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-2xl p-5 border border-gray-200/50">
+                    <p className="text-xs text-muted-foreground mb-3 uppercase tracking-widest font-medium">IBAN</p>
+                    <div className="flex items-center justify-between gap-3 bg-white rounded-xl p-4 border border-gray-100">
+                      <code className="font-mono text-base md:text-lg text-primary tracking-wider font-semibold">
                         {IBAN}
                       </code>
                       <div className="relative">
                         <button
                           onClick={handleCopyIBAN}
-                          className="p-2.5 bg-white rounded-xl border border-gray-200 hover:border-primary hover:bg-primary/5 transition-all duration-300 group"
+                          className="p-3 bg-primary/5 rounded-xl border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all duration-300 group"
                           data-testid="copy-iban-button"
                         >
                           {copied ? (
                             <Check className="w-4 h-4 text-green-500" />
                           ) : (
-                            <Copy className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors" />
+                            <Copy className="w-4 h-4 text-primary/60 group-hover:text-primary transition-colors" />
                           )}
                         </button>
                         <AnimatePresence>
@@ -244,41 +244,10 @@ function DonationModal({
                         </AnimatePresence>
                       </div>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-3">
-                      Получател: Сдружение "Младежко Движение"
-                    </p>
-                  </div>
-                </div>
-
-                {/* Card Payment Section - Coming Soon */}
-                <div className="mb-6">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
-                      <CreditCard className="w-4 h-4 text-gray-400" />
-                    </div>
-                    <h3 className="font-semibold text-gray-400">Картово плащане</h3>
-                    <span className="ml-auto text-xs bg-gray-100 text-gray-500 px-2.5 py-1 rounded-full font-medium">
-                      Очаквайте скоро
-                    </span>
-                  </div>
-                  
-                  <div className="bg-gray-50/50 rounded-2xl p-5 border border-gray-100">
-                    <div className="flex items-center justify-center gap-6 opacity-40 grayscale">
-                      {/* Visa */}
-                      <div className="flex items-center justify-center w-16 h-10 bg-white rounded-lg border border-gray-200 shadow-sm">
-                        <span className="text-[#1A1F71] font-bold text-sm italic tracking-tight">VISA</span>
-                      </div>
-                      {/* Mastercard */}
-                      <div className="flex items-center justify-center w-16 h-10 bg-white rounded-lg border border-gray-200 shadow-sm">
-                        <div className="flex">
-                          <div className="w-4 h-4 bg-[#EB001B] rounded-full" />
-                          <div className="w-4 h-4 bg-[#F79E1B] rounded-full -ml-1.5" />
-                        </div>
-                      </div>
-                      {/* Apple Pay */}
-                      <div className="flex items-center justify-center w-16 h-10 bg-white rounded-lg border border-gray-200 shadow-sm">
-                        <span className="text-black font-semibold text-xs"> Pay</span>
-                      </div>
+                    <div className="mt-4 pt-4 border-t border-gray-200/50">
+                      <p className="text-sm text-muted-foreground">
+                        <span className="font-medium text-primary/80">Получател:</span> Сдружение "Младежко Движение"
+                      </p>
                     </div>
                   </div>
                 </div>
