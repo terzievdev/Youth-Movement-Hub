@@ -73,8 +73,8 @@ export function GalleryAndArticles() {
                     />
                     <img 
                       src={lacrosseSigning2} 
-                      className="w-1/2 h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                      style={{ objectPosition: 'center 30%' }}
+                      className="w-1/2 h-full object-cover transition-transform duration-500 group-hover:scale-105 scale-[0.85]" 
+                      style={{ objectPosition: 'center 25%' }}
                       alt="Подписване на споразумение 2" 
                     />
                   </div>
