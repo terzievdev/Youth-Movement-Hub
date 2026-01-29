@@ -29,13 +29,12 @@ const formSchema = z.object({
 });
 
 const topicOptions = [
-  { value: "partnership", label: "Партньорство", icon: "🤝" },
-  { value: "donation", label: "Дарение", icon: "💝" },
-  { value: "events", label: "Събития", icon: "📅" },
-  { value: "articles", label: "Статии и публикации", icon: "📝" },
-  { value: "website", label: "Въпрос за сайта", icon: "🌐" },
-  { value: "volunteer", label: "Доброволчество", icon: "✋" },
-  { value: "other", label: "Друго", icon: "💬" },
+  { value: "partnership", label: "Партньорство" },
+  { value: "donation", label: "Дарение" },
+  { value: "events", label: "Събития" },
+  { value: "articles", label: "Статии и публикации" },
+  { value: "website", label: "Въпрос за сайта" },
+  { value: "other", label: "Друго" },
 ];
 
 export function Contact() {
@@ -113,15 +112,8 @@ export function Contact() {
                             onClick={() => setIsTopicOpen(!isTopicOpen)}
                             className="w-full h-12 px-4 bg-white/40 rounded-xl flex items-center justify-between transition-all shadow-inner hover:bg-white/60 focus:bg-white"
                           >
-                            <span className={selectedTopic ? "text-primary" : "text-muted-foreground"}>
-                              {selectedTopic ? (
-                                <span className="flex items-center gap-2">
-                                  <span>{selectedTopic.icon}</span>
-                                  <span>{selectedTopic.label}</span>
-                                </span>
-                              ) : (
-                                "Относно..."
-                              )}
+                            <span className={selectedTopic ? "text-primary font-medium" : "text-muted-foreground"}>
+                              {selectedTopic ? selectedTopic.label : "Относно..."}
                             </span>
                             <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform duration-300 ${isTopicOpen ? 'rotate-180' : ''}`} />
                           </button>
@@ -136,12 +128,11 @@ export function Contact() {
                                     field.onChange(option.value);
                                     setIsTopicOpen(false);
                                   }}
-                                  className={`w-full px-4 py-3 flex items-center gap-3 hover:bg-secondary/50 transition-colors text-left ${
+                                  className={`w-full px-5 py-3.5 hover:bg-secondary/50 transition-colors text-left border-b border-border/10 last:border-b-0 ${
                                     field.value === option.value ? 'bg-secondary/30' : ''
                                   }`}
                                 >
-                                  <span className="text-lg">{option.icon}</span>
-                                  <span className="font-medium text-primary">{option.label}</span>
+                                  <span className="font-medium text-primary tracking-wide">{option.label}</span>
                                 </button>
                               ))}
                             </div>
