@@ -10,8 +10,8 @@ export function GalleryAndArticles() {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
 
   const images = [
-    { src: gallery1, className: "col-span-2 h-64" },
-    { src: gallery2, className: "col-span-2 h-64" }
+    { src: gallery1, className: "col-span-2 h-80" },
+    { src: gallery2, className: "col-span-2 h-80" }
   ];
 
   const handleNext = (e: React.MouseEvent) => {
@@ -48,7 +48,7 @@ export function GalleryAndArticles() {
                   onClick={() => setSelectedImageIndex(idx)}
                   className={`${img.className} rounded-3xl overflow-hidden shadow-lg border border-white/20 cursor-pointer`}
                 >
-                  <img src={img.src} className="w-[130%] h-[130%] object-contain -ml-[15%] -mt-[10%]" alt={`Gallery ${idx + 1}`} />
+                  <img src={img.src} className="w-full h-full object-cover" style={{ objectPosition: 'center 30%' }} alt={`Gallery ${idx + 1}`} />
                 </motion.div>
               ))}
             </div>
