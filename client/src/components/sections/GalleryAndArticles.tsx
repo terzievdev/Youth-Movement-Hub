@@ -1,9 +1,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import missionBg from "@/assets/mission-bg.png";
-import gallery1 from "@/assets/gallery-1.png";
-import gallery2 from "@/assets/gallery-2.png";
-import gallery3 from "@/assets/gallery-3.png";
+import gallery1 from "@/assets/gallery/gallery-1.jpg";
+import gallery2 from "@/assets/gallery/gallery-2.jpg";
 import article1 from "@/assets/article-1.png";
 import { ArrowRight, X, ChevronLeft, ChevronRight as ChevronRightIcon } from "lucide-react";
 
@@ -12,8 +11,7 @@ export function GalleryAndArticles() {
 
   const images = [
     { src: gallery1, className: "col-span-2 h-64" },
-    { src: gallery2, className: "h-40" },
-    { src: gallery3, className: "h-40" }
+    { src: gallery2, className: "col-span-2 h-64" }
   ];
 
   const handleNext = (e: React.MouseEvent) => {
