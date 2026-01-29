@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { HandHeart, Briefcase, ChevronRight, X, Check, Copy, Shield, Landmark } from "lucide-react";
+import { HandHeart, Briefcase, ChevronRight, X, Check, Copy, Landmark } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import missionBg from "@/assets/mission-bg.png";
@@ -173,7 +173,7 @@ function DonationModal({
             className="fixed inset-0 z-[101] flex items-center justify-center p-4 pointer-events-none"
           >
             <div 
-              className="bg-white rounded-3xl shadow-2xl w-full max-w-md pointer-events-auto relative overflow-hidden"
+              className="bg-white rounded-3xl shadow-2xl w-full max-w-xl pointer-events-auto relative overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Background decoration */}
@@ -250,12 +250,6 @@ function DonationModal({
                       </p>
                     </div>
                   </div>
-                </div>
-
-                {/* Security Badge */}
-                <div className="flex items-center justify-center gap-2 pt-4 border-t border-gray-100">
-                  <Shield className="w-4 h-4 text-green-600" />
-                  <span className="text-xs text-muted-foreground">Сигурно и криптирано</span>
                 </div>
               </div>
             </div>
