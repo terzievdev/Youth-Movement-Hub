@@ -6,8 +6,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import { Facebook, Instagram, MapPin } from "lucide-react";
+import { Facebook, Instagram, MapPin, ChevronDown } from "lucide-react";
 import missionBg from "@/assets/mission-bg.png";
+import { useState } from "react";
 
 const TikTokIcon = ({ className }: { className?: string }) => (
   <svg 
@@ -23,15 +24,30 @@ const TikTokIcon = ({ className }: { className?: string }) => (
 const formSchema = z.object({
   name: z.string().min(2, "Името трябва да е поне 2 символа"),
   email: z.string().email("Невалиден имейл адрес"),
+  topic: z.string().min(1, "Моля изберете тема"),
   message: z.string().min(10, "Съобщението трябва да е поне 10 символа"),
 });
 
+const topicOptions = [
+  { value: "partnership", label: "Партньорство", icon: "🤝" },
+  { value: "donation", label: "Дарение", icon: "💝" },
+  { value: "events", label: "Събития", icon: "📅" },
+  { value: "articles", label: "Статии и публикации", icon: "📝" },
+  { value: "website", label: "Въпрос за сайта", icon: "🌐" },
+  { value: "volunteer", label: "Доброволчество", icon: "✋" },
+  { value: "other", label: "Друго", icon: "💬" },
+];
+
 export function Contact() {
   const { toast } = useToast();
+  const [isTopicOpen, setIsTopicOpen] = useState(false);
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { name: "", email: "", message: "" },
+    defaultValues: { name: "", email: "", topic: "", message: "" },
   });
+
+  const selectedTopic = topicOptions.find(t => t.value === form.watch("topic"));
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     toast({
@@ -83,6 +99,60 @@ export function Contact() {
                     </FormItem>
                   )}
                 />
+                
+                {/* Custom Topic Dropdown */}
+                <FormField
+                  control={form.control}
+                  name="topic"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <div className="relative">
+                          <button
+                            type="button"
+                            onClick={() => setIsTopicOpen(!isTopicOpen)}
+                            className="w-full h-12 px-4 bg-white/40 rounded-xl flex items-center justify-between transition-all shadow-inner hover:bg-white/60 focus:bg-white"
+                          >
+                            <span className={selectedTopic ? "text-primary" : "text-muted-foreground"}>
+                              {selectedTopic ? (
+                                <span className="flex items-center gap-2">
+                                  <span>{selectedTopic.icon}</span>
+                                  <span>{selectedTopic.label}</span>
+                                </span>
+                              ) : (
+                                "Относно..."
+                              )}
+                            </span>
+                            <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform duration-300 ${isTopicOpen ? 'rotate-180' : ''}`} />
+                          </button>
+                          
+                          {isTopicOpen && (
+                            <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border border-border/30 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                              {topicOptions.map((option) => (
+                                <button
+                                  key={option.value}
+                                  type="button"
+                                  onClick={() => {
+                                    field.onChange(option.value);
+                                    setIsTopicOpen(false);
+                                  }}
+                                  className={`w-full px-4 py-3 flex items-center gap-3 hover:bg-secondary/50 transition-colors text-left ${
+                                    field.value === option.value ? 'bg-secondary/30' : ''
+                                  }`}
+                                >
+                                  <span className="text-lg">{option.icon}</span>
+                                  <span className="font-medium text-primary">{option.label}</span>
+                                </button>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
                 <FormField
                   control={form.control}
                   name="message"
@@ -91,7 +161,7 @@ export function Contact() {
                       <FormControl>
                         <Textarea 
                           placeholder="Твоят въпрос..." 
-                          className="min-h-[140px] bg-white/40 border-none rounded-xl focus:bg-white transition-all shadow-inner resize-none" 
+                          className="min-h-[120px] bg-white/40 border-none rounded-xl focus:bg-white transition-all shadow-inner resize-none" 
                           {...field} 
                         />
                       </FormControl>

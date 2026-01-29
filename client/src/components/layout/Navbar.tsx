@@ -83,21 +83,19 @@ export function Navbar() {
               </button>
             ))}
             
-            {/* Events Button - Special Golden Style */}
+            {/* Events Button - Dark Premium Style */}
             <button
               onClick={() => setIsEventsModalOpen(true)}
               className={cn(
-                "group relative text-sm font-medium transition-all uppercase tracking-widest py-2 flex items-center gap-2",
+                "group relative text-sm font-medium transition-all uppercase tracking-widest py-2 px-4 flex items-center gap-2 rounded-full border",
                 isScrolled 
-                  ? "text-[#D4AF37] hover:text-[#B8960C]" 
-                  : "text-[#D4AF37] hover:text-[#E8C547]"
+                  ? "bg-primary text-white border-primary hover:bg-primary/90" 
+                  : "bg-white/10 text-white border-white/30 hover:bg-white/20 backdrop-blur-sm"
               )}
               data-testid="events-nav-button"
             >
               <Calendar className="w-4 h-4" />
               <span>Събития</span>
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#D4AF37]/50 group-hover:bg-[#D4AF37] transition-all duration-300" />
-              <span className="absolute inset-0 bg-[#D4AF37]/0 group-hover:bg-[#D4AF37]/5 rounded-lg transition-all duration-300 -z-10" />
             </button>
           </div>
 
