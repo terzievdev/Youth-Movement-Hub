@@ -5,6 +5,7 @@ import missionBg from "@/assets/mission-bg.png";
 import gallery1 from "@/assets/gallery/gallery-1.jpg";
 import gallery2 from "@/assets/gallery/gallery-2.jpg";
 import lacrosseSigning1 from "@/assets/articles/lacrosse-signing-1.jpg";
+import lacrosseSigning2 from "@/assets/articles/lacrosse-signing-2.jpg";
 import { ArrowRight, X, ChevronLeft, ChevronRight as ChevronRightIcon } from "lucide-react";
 
 export function GalleryAndArticles() {
@@ -63,12 +64,20 @@ export function GalleryAndArticles() {
                 className="bg-card/60 backdrop-blur-sm rounded-3xl overflow-hidden shadow-xl border border-white/20 group cursor-pointer"
               >
                 <div className="h-56 relative overflow-hidden">
-                  <img 
-                    src={lacrosseSigning1} 
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                    style={{ objectPosition: 'center 40%' }}
-                    alt="Подписване на споразумение" 
-                  />
+                  <div className="flex h-full">
+                    <img 
+                      src={lacrosseSigning1} 
+                      className="w-1/2 h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                      style={{ objectPosition: 'center 30%' }}
+                      alt="Подписване на споразумение 1" 
+                    />
+                    <img 
+                      src={lacrosseSigning2} 
+                      className="w-1/2 h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                      style={{ objectPosition: 'center 30%' }}
+                      alt="Подписване на споразумение 2" 
+                    />
+                  </div>
                   <div className="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Ново</div>
                 </div>
                 <div className="p-8">
