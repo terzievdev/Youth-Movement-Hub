@@ -48,7 +48,7 @@ export function GalleryAndArticles() {
                   onClick={() => setSelectedImageIndex(idx)}
                   className={`${img.className} rounded-3xl overflow-hidden shadow-lg border border-white/20 cursor-pointer`}
                 >
-                  <img src={img.src} className="w-full h-full object-cover" alt={`Gallery ${idx + 1}`} />
+                  <img src={img.src} className="w-full h-full object-cover object-top" alt={`Gallery ${idx + 1}`} />
                 </motion.div>
               ))}
             </div>
