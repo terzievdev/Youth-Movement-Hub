@@ -1,9 +1,10 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { Link } from "wouter";
 import missionBg from "@/assets/mission-bg.png";
 import gallery1 from "@/assets/gallery/gallery-1.jpg";
 import gallery2 from "@/assets/gallery/gallery-2.jpg";
-import article1 from "@/assets/article-1.png";
+import lacrosseSigning1 from "@/assets/articles/lacrosse-signing-1.jpg";
 import { ArrowRight, X, ChevronLeft, ChevronRight as ChevronRightIcon } from "lucide-react";
 
 export function GalleryAndArticles() {
@@ -54,26 +55,32 @@ export function GalleryAndArticles() {
             </div>
           </div>
           
-          {/* ... existing Articles section ... */}
           <div id="articles">
             <h2 className="text-4xl font-serif font-bold text-primary mb-8">Статии</h2>
-            <motion.div 
-              whileHover={{ y: -5 }}
-              className="bg-card/60 backdrop-blur-sm rounded-3xl overflow-hidden shadow-xl border border-white/20 group cursor-pointer"
-            >
-              <div className="h-56 relative overflow-hidden">
-                <img src={article1} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Article 1" />
-                <div className="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Ново</div>
-              </div>
-              <div className="p-8">
-                <p className="text-accent text-sm font-bold mb-2">24 Май, 2024</p>
-                <h3 className="text-2xl font-serif font-bold text-primary mb-4">Бъдещето на неформалното образование в България</h3>
-                <p className="text-muted-foreground mb-6 line-clamp-2">Как новите методи на обучение променят начина, по който младите хора възприемат света и изграждат своите умения...</p>
-                <div className="flex items-center text-primary font-bold group-hover:text-accent transition-colors">
-                  Прочети повече <ArrowRight className="ml-2 w-4 h-4" />
+            <Link href="/article/lacrosse-partnership">
+              <motion.div 
+                whileHover={{ y: -5 }}
+                className="bg-card/60 backdrop-blur-sm rounded-3xl overflow-hidden shadow-xl border border-white/20 group cursor-pointer"
+              >
+                <div className="h-56 relative overflow-hidden">
+                  <img 
+                    src={lacrosseSigning1} 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                    style={{ objectPosition: 'center 40%' }}
+                    alt="Подписване на споразумение" 
+                  />
+                  <div className="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Ново</div>
                 </div>
-              </div>
-            </motion.div>
+                <div className="p-8">
+                  <p className="text-accent text-sm font-bold mb-2">9 Януари, 2026</p>
+                  <h3 className="text-2xl font-serif font-bold text-primary mb-4">Споразумение с Българската федерация по лакрос</h3>
+                  <p className="text-muted-foreground mb-6 line-clamp-2">NEXT GEN BULGARIA поставя основите за дългосрочно партньорство в полза на младежта чрез спорт и неформално образование...</p>
+                  <div className="flex items-center text-primary font-bold group-hover:text-accent transition-colors">
+                    Прочети повече <ArrowRight className="ml-2 w-4 h-4" />
+                  </div>
+                </div>
+              </motion.div>
+            </Link>
           </div>
         </div>
       </div>
