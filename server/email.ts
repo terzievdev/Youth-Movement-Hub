@@ -1,7 +1,7 @@
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const RECIPIENT_EMAIL = 'ngonextgen@gmail.com';
+const RECIPIENT_EMAIL = 'terzievdev@gmail.com';
 
 export async function sendContactEmail(data: {
   name: string;
