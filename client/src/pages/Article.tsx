@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/sections/Footer";
+import { useEffect } from "react";
 import lacrosseSigning1 from "@/assets/articles/lacrosse-signing-1.jpg";
 import lacrosseSigning2 from "@/assets/articles/lacrosse-signing-2.jpg";
 
@@ -49,6 +50,10 @@ const articles: Record<string, {
 export default function Article() {
   const { slug } = useParams<{ slug: string }>();
   const article = slug ? articles[slug] : null;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
 
   if (!article) {
     return (
