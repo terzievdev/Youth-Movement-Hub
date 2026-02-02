@@ -301,10 +301,21 @@ function PartnerDrawer({
     e.preventDefault();
     setIsSubmitting(true);
     
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    try {
+      const response = await fetch('/api/partner', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, organization, email, partnerType, message }),
+      });
+      
+      if (!response.ok) throw new Error('Failed to send');
+      
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error('Error sending partner request:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleClose = () => {

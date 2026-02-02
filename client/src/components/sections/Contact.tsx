@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Facebook, Instagram, MapPin, ChevronDown } from "lucide-react";
 import missionBg from "@/assets/mission-bg.png";
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 
 const TikTokIcon = ({ className }: { className?: string }) => (
   <svg 
@@ -48,12 +49,34 @@ export function Contact() {
 
   const selectedTopic = topicOptions.find(t => t.value === form.watch("topic"));
 
+  const contactMutation = useMutation({
+    mutationFn: async (data: z.infer<typeof formSchema>) => {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) throw new Error('Failed to send');
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Съобщението е изпратено!",
+        description: "Ще се свържем с вас възможно най-скоро.",
+      });
+      form.reset();
+    },
+    onError: () => {
+      toast({
+        title: "Грешка",
+        description: "Не успяхме да изпратим съобщението. Моля опитайте отново.",
+        variant: "destructive",
+      });
+    },
+  });
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    toast({
-      title: "Съобщението е изпратено!",
-      description: "Ще се свържем с вас възможно най-скоро.",
-    });
-    form.reset();
+    contactMutation.mutate(values);
   }
 
   return (
@@ -160,8 +183,12 @@ export function Contact() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full h-12 text-md font-bold rounded-xl shadow-lg hover:shadow-accent/20 hover:bg-accent/80 transition-all">
-                  Изпрати
+                <Button 
+                  type="submit" 
+                  disabled={contactMutation.isPending}
+                  className="w-full h-12 text-md font-bold rounded-xl shadow-lg hover:shadow-accent/20 hover:bg-accent/80 transition-all disabled:opacity-70"
+                >
+                  {contactMutation.isPending ? "Изпращане..." : "Изпрати"}
                 </Button>
               </form>
             </Form>
