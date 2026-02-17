@@ -29,7 +29,11 @@ export async function fetchBlogs() {
       _type,
       title,
       "slug": slug.current,
-      mainImage,
+      mainImage {
+        asset,
+        hotspot,
+        crop
+      },
       body,
       publishedAt
     }`;
@@ -52,7 +56,11 @@ export async function fetchBlogBySlug(slug: string) {
       _type,
       title,
       "slug": slug.current,
-      mainImage,
+      mainImage {
+        asset,
+        hotspot,
+        crop
+      },
       body,
       publishedAt
     }`;
@@ -95,6 +103,8 @@ export async function fetchGalleries() {
       title,
       images[] {
         asset,
+        hotspot,
+        crop,
         caption
       }
     }`;

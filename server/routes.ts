@@ -14,6 +14,8 @@ export async function registerRoutes(
       const transformed = blogs.map((blog: any) => ({
         ...blog,
         imageUrl: blog.mainImage ? urlFor(blog.mainImage).width(800).url() : null,
+        hotspot: blog.mainImage?.hotspot || null,
+        crop: blog.mainImage?.crop || null,
       }));
       res.json(transformed);
     } catch (error) {
@@ -31,6 +33,8 @@ export async function registerRoutes(
       res.json({
         ...blog,
         imageUrl: blog.mainImage ? urlFor(blog.mainImage).width(1200).url() : null,
+        hotspot: blog.mainImage?.hotspot || null,
+        crop: blog.mainImage?.crop || null,
       });
     } catch (error) {
       console.error("Error fetching blog:", error);
@@ -56,6 +60,8 @@ export async function registerRoutes(
         images: gallery.images?.map((img: any) => ({
           ...img,
           url: img.asset ? urlFor(img.asset).width(1200).url() : null,
+          hotspot: img.hotspot || null,
+          crop: img.crop || null,
         })) || [],
       }));
       res.json(transformed);

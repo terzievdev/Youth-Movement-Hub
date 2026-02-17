@@ -6,13 +6,26 @@ import { Footer } from "@/components/sections/Footer";
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
+interface Hotspot {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
 interface BlogPost {
   _id: string;
   title: string;
   slug: string;
   body: string;
   imageUrl: string | null;
+  hotspot: Hotspot | null;
   publishedAt: string;
+}
+
+function getObjectPosition(hotspot: Hotspot | null | undefined): string {
+  if (!hotspot) return 'center top';
+  return `${(hotspot.x * 100).toFixed(1)}% ${(hotspot.y * 100).toFixed(1)}%`;
 }
 
 function formatDate(dateStr: string) {
@@ -69,7 +82,8 @@ export default function AllArticles() {
                         <div className="relative overflow-hidden">
                           <img
                             src={blog.imageUrl}
-                            className="w-full max-h-80 object-cover object-top"
+                            className="w-full h-64 object-cover"
+                            style={{ objectPosition: getObjectPosition(blog.hotspot) }}
                             alt={blog.title}
                           />
                         </div>

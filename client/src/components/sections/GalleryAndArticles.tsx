@@ -7,19 +7,32 @@ import gallery2 from "@/assets/gallery/gallery-2.jpg";
 import { ArrowRight, X, ChevronLeft, ChevronRight as ChevronRightIcon, Newspaper } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 
+interface Hotspot {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
 interface BlogPost {
   _id: string;
   title: string;
   slug: string;
   body: string;
   imageUrl: string | null;
+  hotspot: Hotspot | null;
   publishedAt: string;
 }
 
 interface GalleryItem {
   _id: string;
   title: string;
-  images: { url: string | null; caption?: string }[];
+  images: { url: string | null; caption?: string; hotspot?: Hotspot | null }[];
+}
+
+function getObjectPosition(hotspot: Hotspot | null | undefined): string {
+  if (!hotspot) return 'center top';
+  return `${(hotspot.x * 100).toFixed(1)}% ${(hotspot.y * 100).toFixed(1)}%`;
 }
 
 export function GalleryAndArticles() {
@@ -52,11 +65,12 @@ export function GalleryAndArticles() {
     ? galleries.flatMap(g => g.images.filter(img => img.url).map(img => ({
         src: img.url!,
         caption: img.caption,
+        hotspot: img.hotspot,
         className: "col-span-2 h-80",
       })))
-    : fallbackImages.map(img => ({ ...img, caption: undefined }));
+    : fallbackImages.map(img => ({ ...img, caption: undefined, hotspot: undefined }));
 
-  const allImages = galleryImages.length > 0 ? galleryImages : fallbackImages.map(img => ({ ...img, caption: undefined }));
+  const allImages = galleryImages.length > 0 ? galleryImages : fallbackImages.map(img => ({ ...img, caption: undefined, hotspot: undefined }));
 
   const handleNext = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -97,7 +111,7 @@ export function GalleryAndArticles() {
                   className={`${img.className} rounded-3xl overflow-hidden shadow-lg border border-white/20 cursor-pointer`}
                   data-testid={`gallery-image-${idx}`}
                 >
-                  <img src={img.src} className="w-full h-full object-cover" style={{ objectPosition: 'center 30%' }} alt={img.caption || `Gallery ${idx + 1}`} />
+                  <img src={img.src} className="w-full h-full object-cover" style={{ objectPosition: getObjectPosition(img.hotspot) }} alt={img.caption || `Gallery ${idx + 1}`} />
                 </motion.div>
               ))}
             </div>
@@ -117,7 +131,8 @@ export function GalleryAndArticles() {
                       <div className="relative overflow-hidden">
                         <img 
                           src={blog.imageUrl} 
-                          className="w-full max-h-72 object-cover object-top transition-transform duration-500 group-hover:scale-105" 
+                          className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" 
+                          style={{ objectPosition: getObjectPosition(blog.hotspot) }}
                           alt={blog.title} 
                         />
                       </div>
