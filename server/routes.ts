@@ -11,7 +11,11 @@ export async function registerRoutes(
   app.get("/api/blogs", async (_req, res) => {
     try {
       const blogs = await fetchBlogs();
-      res.json(blogs);
+      const transformed = blogs.map((blog: any) => ({
+        ...blog,
+        imageUrl: blog.mainImage ? urlFor(blog.mainImage).width(800).url() : null,
+      }));
+      res.json(transformed);
     } catch (error) {
       console.error("Error fetching blogs:", error);
       res.status(500).json({ message: "Failed to fetch blogs" });
@@ -24,7 +28,10 @@ export async function registerRoutes(
       if (!blog) {
         return res.status(404).json({ message: "Blog not found" });
       }
-      res.json(blog);
+      res.json({
+        ...blog,
+        imageUrl: blog.mainImage ? urlFor(blog.mainImage).width(1200).url() : null,
+      });
     } catch (error) {
       console.error("Error fetching blog:", error);
       res.status(500).json({ message: "Failed to fetch blog" });
@@ -44,7 +51,14 @@ export async function registerRoutes(
   app.get("/api/galleries", async (_req, res) => {
     try {
       const galleries = await fetchGalleries();
-      res.json(galleries);
+      const transformed = galleries.map((gallery: any) => ({
+        ...gallery,
+        images: gallery.images?.map((img: any) => ({
+          ...img,
+          url: img.asset ? urlFor(img.asset).width(1200).url() : null,
+        })) || [],
+      }));
+      res.json(transformed);
     } catch (error) {
       console.error("Error fetching galleries:", error);
       res.status(500).json({ message: "Failed to fetch galleries" });

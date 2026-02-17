@@ -4,97 +4,153 @@ import { Link } from "wouter";
 import missionBg from "@/assets/mission-bg.png";
 import gallery1 from "@/assets/gallery/gallery-1.jpg";
 import gallery2 from "@/assets/gallery/gallery-2.jpg";
-import lacrosseSigning1 from "@/assets/articles/lacrosse-signing-1.jpg";
-import lacrosseSigning2 from "@/assets/articles/lacrosse-signing-2.jpg";
-import { ArrowRight, X, ChevronLeft, ChevronRight as ChevronRightIcon } from "lucide-react";
+import { ArrowRight, X, ChevronLeft, ChevronRight as ChevronRightIcon, Newspaper } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+
+interface BlogPost {
+  _id: string;
+  title: string;
+  slug: string;
+  body: string;
+  imageUrl: string | null;
+  publishedAt: string;
+}
+
+interface GalleryItem {
+  _id: string;
+  title: string;
+  images: { url: string | null; caption?: string }[];
+}
 
 export function GalleryAndArticles() {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
 
-  const images = [
+  const { data: blogs = [] } = useQuery<BlogPost[]>({
+    queryKey: ["/api/blogs"],
+    queryFn: async () => {
+      const res = await fetch("/api/blogs");
+      if (!res.ok) return [];
+      return res.json();
+    },
+  });
+
+  const { data: galleries = [] } = useQuery<GalleryItem[]>({
+    queryKey: ["/api/galleries"],
+    queryFn: async () => {
+      const res = await fetch("/api/galleries");
+      if (!res.ok) return [];
+      return res.json();
+    },
+  });
+
+  const fallbackImages = [
     { src: gallery1, className: "col-span-2 h-80" },
-    { src: gallery2, className: "col-span-2 h-80" }
+    { src: gallery2, className: "col-span-2 h-80" },
   ];
+
+  const galleryImages = galleries.length > 0
+    ? galleries.flatMap(g => g.images.filter(img => img.url).map(img => ({
+        src: img.url!,
+        caption: img.caption,
+        className: "col-span-2 h-80",
+      })))
+    : fallbackImages.map(img => ({ ...img, caption: undefined }));
+
+  const allImages = galleryImages.length > 0 ? galleryImages : fallbackImages.map(img => ({ ...img, caption: undefined }));
 
   const handleNext = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (selectedImageIndex !== null) {
-      setSelectedImageIndex((selectedImageIndex + 1) % images.length);
+      setSelectedImageIndex((selectedImageIndex + 1) % allImages.length);
     }
   };
 
   const handlePrev = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (selectedImageIndex !== null) {
-      setSelectedImageIndex((selectedImageIndex - 1 + images.length) % images.length);
+      setSelectedImageIndex((selectedImageIndex - 1 + allImages.length) % allImages.length);
     }
   };
 
+  function formatDate(dateStr: string) {
+    const date = new Date(dateStr);
+    const months = ["Януари", "Февруари", "Март", "Април", "Май", "Юни", "Юли", "Август", "Септември", "Октомври", "Ноември", "Декември"];
+    return `${date.getDate()} ${months[date.getMonth()]}, ${date.getFullYear()}`;
+  }
+
   return (
     <section className="py-24 relative overflow-hidden bg-background">
-      {/* Background Image Overlay */}
       <div className="absolute inset-0 z-0">
         <img src={missionBg} className="w-full h-full object-cover opacity-10 grayscale" alt="Background" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16">
-          {/* Gallery Section */}
           <div id="gallery">
-            <h2 className="text-4xl font-serif font-bold text-primary mb-8">Галерия</h2>
+            <h2 className="text-4xl font-serif font-bold text-primary mb-8" data-testid="text-gallery-title">Галерия</h2>
             <div className="grid grid-cols-2 gap-4">
-              {images.map((img, idx) => (
+              {allImages.map((img, idx) => (
                 <motion.div 
                   key={idx}
                   whileHover={{ scale: 1.02 }}
                   onClick={() => setSelectedImageIndex(idx)}
                   className={`${img.className} rounded-3xl overflow-hidden shadow-lg border border-white/20 cursor-pointer`}
+                  data-testid={`gallery-image-${idx}`}
                 >
-                  <img src={img.src} className="w-full h-full object-cover" style={{ objectPosition: 'center 30%' }} alt={`Gallery ${idx + 1}`} />
+                  <img src={img.src} className="w-full h-full object-cover" style={{ objectPosition: 'center 30%' }} alt={img.caption || `Gallery ${idx + 1}`} />
                 </motion.div>
               ))}
             </div>
           </div>
           
           <div id="articles">
-            <h2 className="text-4xl font-serif font-bold text-primary mb-8">Статии</h2>
-            <Link href="/article/lacrosse-partnership">
-              <motion.div 
-                whileHover={{ y: -5 }}
-                className="bg-card/60 backdrop-blur-sm rounded-3xl overflow-hidden shadow-xl border border-white/20 group cursor-pointer"
-              >
-                <div className="h-56 relative overflow-hidden">
-                  <div className="flex h-full">
-                    <img 
-                      src={lacrosseSigning1} 
-                      className="w-1/2 h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                      style={{ objectPosition: 'center 30%' }}
-                      alt="Подписване на споразумение 1" 
-                    />
-                    <img 
-                      src={lacrosseSigning2} 
-                      className="w-1/2 h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                      style={{ objectPosition: 'center center' }}
-                      alt="Подписване на споразумение 2" 
-                    />
+            <h2 className="text-4xl font-serif font-bold text-primary mb-8" data-testid="text-articles-title">Статии</h2>
+            <div className="space-y-6">
+              {blogs.length > 0 ? blogs.map((blog) => (
+                <Link key={blog._id} href={`/article/${blog.slug}`}>
+                  <motion.div 
+                    whileHover={{ y: -5 }}
+                    className="bg-card/60 backdrop-blur-sm rounded-3xl overflow-hidden shadow-xl border border-white/20 group cursor-pointer"
+                    data-testid={`card-article-${blog._id}`}
+                  >
+                    {blog.imageUrl && (
+                      <div className="h-56 relative overflow-hidden">
+                        <img 
+                          src={blog.imageUrl} 
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                          alt={blog.title} 
+                        />
+                        <div className="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Ново</div>
+                      </div>
+                    )}
+                    <div className="p-8">
+                      {blog.publishedAt && (
+                        <p className="text-accent text-sm font-bold mb-2">{formatDate(blog.publishedAt)}</p>
+                      )}
+                      <h3 className="text-2xl font-serif font-bold text-primary mb-4">{blog.title}</h3>
+                      {blog.body && (
+                        <p className="text-muted-foreground mb-6 line-clamp-2">{blog.body}</p>
+                      )}
+                      <div className="flex items-center text-primary font-bold group-hover:text-accent transition-colors">
+                        Прочети повече <ArrowRight className="ml-2 w-4 h-4" />
+                      </div>
+                    </div>
+                  </motion.div>
+                </Link>
+              )) : (
+                <div className="bg-card/60 backdrop-blur-sm rounded-3xl p-12 border border-white/20 text-center">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center">
+                    <Newspaper className="w-8 h-8 text-accent" />
                   </div>
-                  <div className="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Ново</div>
+                  <h3 className="text-xl font-serif font-bold text-primary mb-2">Очаквайте скоро</h3>
+                  <p className="text-muted-foreground text-sm">Работим върху интересни статии за вас.</p>
                 </div>
-                <div className="p-8">
-                  <p className="text-accent text-sm font-bold mb-2">9 Януари, 2026</p>
-                  <h3 className="text-2xl font-serif font-bold text-primary mb-4">Споразумение с Българската федерация по лакрос</h3>
-                  <p className="text-muted-foreground mb-6 line-clamp-2">NEXT GEN BULGARIA поставя основите за дългосрочно партньорство в полза на младежта чрез спорт и неформално образование...</p>
-                  <div className="flex items-center text-primary font-bold group-hover:text-accent transition-colors">
-                    Прочети повече <ArrowRight className="ml-2 w-4 h-4" />
-                  </div>
-                </div>
-              </motion.div>
-            </Link>
+              )}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Lightbox */}
       <AnimatePresence>
         {selectedImageIndex !== null && (
           <motion.div 
@@ -107,6 +163,7 @@ export function GalleryAndArticles() {
             <button 
               className="absolute top-8 right-8 text-white hover:text-accent transition-colors z-[110]"
               onClick={() => setSelectedImageIndex(null)}
+              data-testid="button-lightbox-close"
             >
               <X size={40} />
             </button>
@@ -114,6 +171,7 @@ export function GalleryAndArticles() {
             <button 
               className="absolute left-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors bg-white/10 p-4 rounded-full backdrop-blur-md z-[110]"
               onClick={handlePrev}
+              data-testid="button-lightbox-prev"
             >
               <ChevronLeft size={48} />
             </button>
@@ -121,6 +179,7 @@ export function GalleryAndArticles() {
             <button 
               className="absolute right-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors bg-white/10 p-4 rounded-full backdrop-blur-md z-[110]"
               onClick={handleNext}
+              data-testid="button-lightbox-next"
             >
               <ChevronRightIcon size={48} />
             </button>
@@ -130,7 +189,7 @@ export function GalleryAndArticles() {
               initial={{ x: 100, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -100, opacity: 0 }}
-              src={images[selectedImageIndex].src} 
+              src={allImages[selectedImageIndex].src} 
               className="max-w-[85vw] max-h-[85vh] rounded-2xl shadow-2xl object-contain"
               onClick={(e) => e.stopPropagation()}
             />
