@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import { Facebook, Instagram, MapPin, ChevronDown } from "lucide-react";
+import { Facebook, Instagram, Mail, ChevronDown } from "lucide-react";
 import missionBg from "@/assets/mission-bg.png";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
@@ -81,18 +81,20 @@ export function Contact() {
 
   return (
     <section id="contact" className="py-24 relative overflow-hidden bg-background">
-      {/* Background Image Overlay */}
       <div className="absolute inset-0 z-0">
         <img src={missionBg} className="w-full h-full object-cover opacity-10 grayscale" alt="Background" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-8 items-start justify-center">
-          {/* Form Card */}
-          <div className="bg-secondary/10 backdrop-blur-md p-10 rounded-[2rem] border border-border/30 shadow-xl w-full lg:max-w-md">
-            <div className="mb-8">
-              <h2 className="text-3xl font-serif font-bold text-primary mb-3">Свържи се с нас</h2>
-              <div className="w-12 h-1 bg-accent mb-4" />
+        <div className="flex flex-col items-center max-w-lg mx-auto">
+          <div className="bg-secondary/10 backdrop-blur-md p-10 rounded-[2rem] border border-border/30 shadow-xl w-full" data-testid="contact-form-card">
+            <div className="mb-8 text-center">
+              <div className="inline-flex items-center justify-center p-3 rounded-2xl bg-accent/10 mb-4">
+                <Mail className="w-6 h-6 text-accent" />
+              </div>
+              <h2 className="text-3xl font-serif font-bold text-primary mb-3" data-testid="text-contact-title">Свържи се с нас</h2>
+              <p className="text-sm text-muted-foreground">Имаш въпрос или предложение? Пиши ни!</p>
+              <div className="w-12 h-1 bg-accent mt-4 mx-auto" />
             </div>
 
             <Form {...form}>
@@ -103,7 +105,7 @@ export function Contact() {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input placeholder="Име" {...field} className="h-12 bg-white/40 border-none rounded-xl focus:bg-white transition-all shadow-inner" />
+                        <Input placeholder="Име" {...field} data-testid="input-contact-name" className="h-12 bg-white/40 border-none rounded-xl focus:bg-white transition-all shadow-inner" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -115,14 +117,13 @@ export function Contact() {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input placeholder="Имейл" {...field} className="h-12 bg-white/40 border-none rounded-xl focus:bg-white transition-all shadow-inner" />
+                        <Input placeholder="Имейл" {...field} data-testid="input-contact-email" className="h-12 bg-white/40 border-none rounded-xl focus:bg-white transition-all shadow-inner" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 
-                {/* Custom Topic Dropdown */}
                 <FormField
                   control={form.control}
                   name="topic"
@@ -132,6 +133,7 @@ export function Contact() {
                         <div className="relative">
                           <button
                             type="button"
+                            data-testid="button-topic-select"
                             onClick={() => setIsTopicOpen(!isTopicOpen)}
                             className="w-full h-12 px-4 bg-white/40 rounded-xl flex items-center justify-between transition-all shadow-inner hover:bg-white/60 focus:bg-white"
                           >
@@ -147,6 +149,7 @@ export function Contact() {
                                 <button
                                   key={option.value}
                                   type="button"
+                                  data-testid={`button-topic-${option.value}`}
                                   onClick={() => {
                                     field.onChange(option.value);
                                     setIsTopicOpen(false);
@@ -175,6 +178,7 @@ export function Contact() {
                       <FormControl>
                         <Textarea 
                           placeholder="Твоят въпрос..." 
+                          data-testid="input-contact-message"
                           className="min-h-[120px] bg-white/40 border-none rounded-xl focus:bg-white transition-all shadow-inner resize-none" 
                           {...field} 
                         />
@@ -185,6 +189,7 @@ export function Contact() {
                 />
                 <Button 
                   type="submit" 
+                  data-testid="button-contact-submit"
                   disabled={contactMutation.isPending}
                   className="w-full h-12 text-md font-bold rounded-xl shadow-lg hover:shadow-accent/20 hover:bg-accent/80 transition-all disabled:opacity-70"
                 >
@@ -194,47 +199,45 @@ export function Contact() {
             </Form>
           </div>
 
-          {/* Map & Socials Column */}
-          <div className="flex flex-col gap-6 w-full lg:w-auto">
-            {/* Real Interactive Map with specific address and custom pin look */}
-            <div className="h-[350px] lg:w-[450px] rounded-[2rem] overflow-hidden shadow-xl border border-border/30 transition-all duration-700 relative">
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2932.3217436034077!2d23.351000000000003!3d42.697400000000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa85f8f5b8f5b5%3A0x78395ad9d44800!2sul.%20%22Aleksandar%20Zhendov%22%206%2C%201113%20g.k.%20Yavorov%2C%20Sofia!5e0!3m2!1sen!2sbg!4v1716385000000!5m2!1sen!2sbg&q=ul.+Aleksandar+Zhendov+6,+1113+Sofia" 
-                width="100%" 
-                height="100%" 
-                style={{ border: 0 }} 
-                allowFullScreen={true} 
-                loading="lazy" 
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </div>
-            
-            {/* Compact Info Card */}
-            <div className="bg-secondary/10 backdrop-blur-md p-8 rounded-[2rem] border border-border/30 flex flex-col gap-6 items-center w-full max-w-[450px]">
-              <div className="flex items-center gap-3 text-primary/80">
-                <MapPin className="w-5 h-5 text-accent" />
-                <span className="text-sm font-serif italic font-bold">ул. "Александър Жендов" №6, София</span>
-              </div>
-              <div className="flex gap-10">
-                <a href="#" className="group flex flex-col items-center gap-2">
-                  <div className="p-4 rounded-xl bg-white/50 group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-sm">
-                    <Facebook className="w-5 h-5" />
-                  </div>
-                  <span className="text-[10px] font-serif uppercase tracking-widest font-bold opacity-70">Facebook</span>
-                </a>
-                <a href="#" className="group flex flex-col items-center gap-2">
-                  <div className="p-4 rounded-xl bg-white/50 group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-300 shadow-sm">
-                    <Instagram className="w-5 h-5" />
-                  </div>
-                  <span className="text-[10px] font-serif uppercase tracking-widest font-bold opacity-70">Instagram</span>
-                </a>
-                <a href="#" className="group flex flex-col items-center gap-2">
-                  <div className="p-4 rounded-xl bg-white/50 group-hover:bg-black group-hover:text-white transition-all duration-300 shadow-sm">
-                    <TikTokIcon className="w-5 h-5" />
-                  </div>
-                  <span className="text-[10px] font-serif uppercase tracking-widest font-bold opacity-70">TikTok</span>
-                </a>
-              </div>
+          <div className="mt-8 w-full">
+            <p className="text-center text-xs font-serif uppercase tracking-[0.2em] text-muted-foreground mb-5">Последвай ни</p>
+            <div className="flex justify-center gap-5">
+              <a 
+                href="http://facebook.com/share/1AqfYFRzt5/?mibextid=wwXlfr" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                data-testid="link-facebook"
+                className="group flex flex-col items-center gap-2"
+              >
+                <div className="p-4 rounded-xl bg-secondary/10 backdrop-blur-md border border-border/30 group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-sm">
+                  <Facebook className="w-5 h-5" />
+                </div>
+                <span className="text-[10px] font-serif uppercase tracking-widest font-bold opacity-70">Facebook</span>
+              </a>
+              <a 
+                href="http://instagram.com/nextgenbulgaria" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                data-testid="link-instagram"
+                className="group flex flex-col items-center gap-2"
+              >
+                <div className="p-4 rounded-xl bg-secondary/10 backdrop-blur-md border border-border/30 group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-300 shadow-sm">
+                  <Instagram className="w-5 h-5" />
+                </div>
+                <span className="text-[10px] font-serif uppercase tracking-widest font-bold opacity-70">Instagram</span>
+              </a>
+              <a 
+                href="http://tiktok.com/@next.gen.bulgaria" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                data-testid="link-tiktok"
+                className="group flex flex-col items-center gap-2"
+              >
+                <div className="p-4 rounded-xl bg-secondary/10 backdrop-blur-md border border-border/30 group-hover:bg-black group-hover:text-white transition-all duration-300 shadow-sm">
+                  <TikTokIcon className="w-5 h-5" />
+                </div>
+                <span className="text-[10px] font-serif uppercase tracking-widest font-bold opacity-70">TikTok</span>
+              </a>
             </div>
           </div>
         </div>
