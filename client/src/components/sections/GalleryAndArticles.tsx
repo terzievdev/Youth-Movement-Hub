@@ -118,6 +118,7 @@ export function GalleryAndArticles() {
                         <img 
                           src={blog.imageUrl} 
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                          style={{ objectPosition: 'center 20%' }}
                           alt={blog.title} 
                         />
                       </div>

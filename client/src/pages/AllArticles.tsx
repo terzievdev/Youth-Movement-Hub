@@ -70,6 +70,7 @@ export default function AllArticles() {
                           <img
                             src={blog.imageUrl}
                             className="w-full h-full object-cover"
+                            style={{ objectPosition: 'center 20%' }}
                             alt={blog.title}
                           />
                         </div>
