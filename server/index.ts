@@ -2,6 +2,7 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { serveStatic } from "./static";
 import { createServer } from "http";
+import path from "path";
 
 const app = express();
 const httpServer = createServer(app);
@@ -61,6 +62,16 @@ app.use((req, res, next) => {
 
 (async () => {
   await registerRoutes(httpServer, app);
+
+  const studioPath = path.resolve(process.cwd(), "studio/dist");
+  app.use("/studio", express.static(studioPath));
+  app.use((req, res, next) => {
+    if (req.path.startsWith("/studio")) {
+      res.sendFile(path.resolve(studioPath, "index.html"));
+    } else {
+      next();
+    }
+  });
 
   app.use((err: any, _req: Request, res: Response, next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
