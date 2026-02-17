@@ -80,7 +80,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden bg-background">
+    <section id="contact" className="py-16 md:py-24 relative overflow-hidden bg-background">
       <div className="absolute inset-0 z-0">
         <img src={missionBg} className="w-full h-full object-cover opacity-10 grayscale" alt="Background" />
       </div>

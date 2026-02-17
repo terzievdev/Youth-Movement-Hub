@@ -491,16 +491,16 @@ export function JoinUs() {
   ];
 
   return (
-    <section id="join" className="py-24 relative overflow-hidden bg-secondary/30">
+    <section id="join" className="py-16 md:py-24 relative overflow-hidden bg-secondary/30">
       {/* Background Image Overlay */}
       <div className="absolute inset-0 z-0">
         <img src={missionBg} className="w-full h-full object-cover opacity-10 grayscale" alt="Background" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="mb-16 text-center max-w-3xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-primary mb-4">Стани част от нас</h2>
-          <p className="text-lg text-muted-foreground">
+        <div className="mb-10 md:mb-16 text-center max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-5xl font-serif font-bold text-primary mb-3 md:mb-4">Стани част от нас</h2>
+          <p className="text-base md:text-lg text-muted-foreground">
             Има много начини да допринесеш за промяната. Избери своя път и се присъедини към семейството.
           </p>
         </div>
@@ -515,7 +515,7 @@ export function JoinUs() {
               transition={{ delay: index * 0.15, duration: 0.5 }}
               className="flex"
             >
-              <div className="flex-1 p-10 rounded-[2rem] flex flex-col justify-between transition-all duration-500 hover:scale-[1.02] shadow-2xl bg-white/50 backdrop-blur-[16px] border border-white/50 group relative overflow-hidden min-h-[320px]">
+              <div className="flex-1 p-6 md:p-10 rounded-[2rem] flex flex-col justify-between transition-all duration-500 hover:scale-[1.02] shadow-2xl bg-white/50 backdrop-blur-[16px] border border-white/50 group relative overflow-hidden min-h-[280px] md:min-h-[320px]">
                 {/* Background Image Asset */}
                 <div className="absolute inset-0 z-0">
                   <img 

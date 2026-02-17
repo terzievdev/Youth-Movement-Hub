@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { useState, useEffect } from "react";
 import { Menu, X, Calendar } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/logo.png";
 import { EventsModal } from "@/components/sections/EventsModal";
@@ -111,43 +112,74 @@ export function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-background border-b border-border p-6 md:hidden animate-in slide-in-from-top-5">
-            <div className="flex flex-col gap-4">
-              {navItems.map((item) => (
+        {/* Mobile Menu - Luxury Fullscreen */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="fixed inset-0 top-0 left-0 right-0 bottom-0 bg-[#0a0a14]/95 backdrop-blur-xl md:hidden z-[60] flex flex-col"
+            >
+              <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
+                <div className="flex flex-col items-center">
+                  <img src={logo} alt="Logo" className="h-10 w-auto brightness-0 invert" />
+                  <span className="text-[10px] font-serif font-bold tracking-[0.2em] text-white/80 mt-1">NEXT GEN BULGARIA</span>
+                </div>
                 <button
-                  key={item}
-                  onClick={() => {
-                    const idMap: Record<string, string> = {
-                      "Мисия": "mission",
-                      "Галерия": "gallery",
-                      "Статии": "articles",
-                      "Стани част": "join",
-                      "Контакти": "contact"
-                    };
-                    scrollToSection(idMap[item]);
-                  }}
-                  className="text-lg font-serif font-medium text-left"
+                  className="p-2 text-white/80 hover:text-white transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  {item}
+                  <X className="w-6 h-6" />
                 </button>
-              ))}
-              
-              {/* Mobile Events Button */}
-              <button
-                onClick={() => {
-                  setIsEventsModalOpen(true);
-                  setIsMobileMenuOpen(false);
-                }}
-                className="text-lg font-serif font-medium text-left text-[#D4AF37] flex items-center gap-2"
-              >
-                <Calendar className="w-5 h-5" />
-                Събития
-              </button>
-            </div>
-          </div>
-        )}
+              </div>
+
+              <div className="flex-1 flex flex-col items-center justify-center gap-1 px-8">
+                {navItems.map((item, index) => (
+                  <motion.button
+                    key={item}
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + index * 0.07 }}
+                    onClick={() => {
+                      const idMap: Record<string, string> = {
+                        "Мисия": "mission",
+                        "Галерия": "gallery",
+                        "Статии": "articles",
+                        "Стани част": "join",
+                        "Контакти": "contact"
+                      };
+                      scrollToSection(idMap[item]);
+                    }}
+                    className="w-full py-4 text-center text-2xl font-serif font-bold text-white/90 tracking-widest uppercase hover:text-[#D4AF37] transition-colors duration-300 border-b border-white/5"
+                  >
+                    {item}
+                  </motion.button>
+                ))}
+                
+                <motion.button
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1 + navItems.length * 0.07 }}
+                  onClick={() => {
+                    setIsEventsModalOpen(true);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="w-full py-4 text-center text-2xl font-serif font-bold text-[#D4AF37] tracking-widest uppercase flex items-center justify-center gap-3 mt-2"
+                >
+                  <Calendar className="w-6 h-6" />
+                  Събития
+                </motion.button>
+              </div>
+
+              <div className="px-8 pb-8 text-center">
+                <div className="w-12 h-0.5 bg-[#D4AF37]/40 mx-auto mb-3" />
+                <p className="text-white/30 text-xs font-serif tracking-widest uppercase">Младежко Движение</p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       <EventsModal 

@@ -84,15 +84,15 @@ export function GalleryAndArticles() {
   }
 
   return (
-    <section className="py-24 relative overflow-hidden bg-background">
+    <section className="py-16 md:py-24 relative overflow-hidden bg-background">
       <div className="absolute inset-0 z-0">
         <img src={missionBg} className="w-full h-full object-cover opacity-10 grayscale" alt="Background" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-10 md:gap-16">
           <div id="gallery">
-            <h2 className="text-4xl font-serif font-bold text-primary mb-8" data-testid="text-gallery-title">Галерия</h2>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary mb-6 md:mb-8" data-testid="text-gallery-title">Галерия</h2>
             {allImages.length > 0 ? (
               <div className="grid grid-cols-2 gap-4">
                 {allImages.map((img, idx) => (
@@ -119,7 +119,7 @@ export function GalleryAndArticles() {
           </div>
           
           <div id="articles">
-            <h2 className="text-4xl font-serif font-bold text-primary mb-8" data-testid="text-articles-title">Статии</h2>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary mb-6 md:mb-8" data-testid="text-articles-title">Статии</h2>
             <div className="space-y-6">
               {blogs.length > 0 ? blogs.slice(0, 2).map((blog) => (
                 <Link key={blog._id} href={`/article/${blog.slug}`}>
