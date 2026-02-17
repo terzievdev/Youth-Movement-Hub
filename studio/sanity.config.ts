@@ -6,7 +6,7 @@ import { schemaTypes } from './schemaTypes'
 export default defineConfig({
   name: 'nextgen-bulgaria',
   title: 'NEXT GEN BULGARIA',
-  projectId: 'nlqwx6i4',
+  projectId: 'qrrji2vr',
   dataset: 'production',
   plugins: [
     structureTool(),
