@@ -2,9 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Link } from "wouter";
 import missionBg from "@/assets/mission-bg.png";
-import gallery1 from "@/assets/gallery/gallery-1.jpg";
-import gallery2 from "@/assets/gallery/gallery-2.jpg";
-import { ArrowRight, X, ChevronLeft, ChevronRight as ChevronRightIcon, Newspaper } from "lucide-react";
+import { ArrowRight, X, ChevronLeft, ChevronRight as ChevronRightIcon, Newspaper, Camera } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 
 interface Hotspot {
@@ -56,21 +54,14 @@ export function GalleryAndArticles() {
     },
   });
 
-  const fallbackImages = [
-    { src: gallery1, className: "col-span-2 h-80" },
-    { src: gallery2, className: "col-span-2 h-80" },
-  ];
-
-  const galleryImages = galleries.length > 0
+  const allImages = galleries.length > 0
     ? galleries.flatMap(g => g.images.filter(img => img.url).map(img => ({
         src: img.url!,
         caption: img.caption,
         hotspot: img.hotspot,
         className: "col-span-2 h-80",
       })))
-    : fallbackImages.map(img => ({ ...img, caption: undefined, hotspot: undefined }));
-
-  const allImages = galleryImages.length > 0 ? galleryImages : fallbackImages.map(img => ({ ...img, caption: undefined, hotspot: undefined }));
+    : [];
 
   const handleNext = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -102,19 +93,29 @@ export function GalleryAndArticles() {
         <div className="grid lg:grid-cols-2 gap-16">
           <div id="gallery">
             <h2 className="text-4xl font-serif font-bold text-primary mb-8" data-testid="text-gallery-title">Галерия</h2>
-            <div className="grid grid-cols-2 gap-4">
-              {allImages.map((img, idx) => (
-                <motion.div 
-                  key={idx}
-                  whileHover={{ scale: 1.02 }}
-                  onClick={() => setSelectedImageIndex(idx)}
-                  className={`${img.className} rounded-3xl overflow-hidden shadow-lg border border-white/20 cursor-pointer`}
-                  data-testid={`gallery-image-${idx}`}
-                >
-                  <img src={img.src} className="w-full h-full object-cover" style={{ objectPosition: getObjectPosition(img.hotspot) }} alt={img.caption || `Gallery ${idx + 1}`} />
-                </motion.div>
-              ))}
-            </div>
+            {allImages.length > 0 ? (
+              <div className="grid grid-cols-2 gap-4">
+                {allImages.map((img, idx) => (
+                  <motion.div 
+                    key={idx}
+                    whileHover={{ scale: 1.02 }}
+                    onClick={() => setSelectedImageIndex(idx)}
+                    className={`${img.className} rounded-3xl overflow-hidden shadow-lg border border-white/20 cursor-pointer`}
+                    data-testid={`gallery-image-${idx}`}
+                  >
+                    <img src={img.src} className="w-full h-full object-cover" style={{ objectPosition: getObjectPosition(img.hotspot) }} alt={img.caption || `Gallery ${idx + 1}`} />
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <div className="bg-card/60 backdrop-blur-sm rounded-3xl p-12 border border-white/20 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center">
+                  <Camera className="w-8 h-8 text-accent" />
+                </div>
+                <h3 className="text-xl font-serif font-bold text-primary mb-2">Очаквайте скоро</h3>
+                <p className="text-muted-foreground text-sm">Подготвяме вълнуващи моменти за вас.</p>
+              </div>
+            )}
           </div>
           
           <div id="articles">
