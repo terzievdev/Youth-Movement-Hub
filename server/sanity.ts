@@ -22,7 +22,6 @@ export function urlFor(source: any) {
 }
 
 export async function fetchBlogs() {
-  console.log("fetchBlogs called, projectId length:", projectId?.length, "first3:", projectId?.substring(0,3), "dataset:", dataset);
   if (!projectId) return [];
   try {
     const query = `*[_type == "blog"] | order(publishedAt desc) {
@@ -35,7 +34,6 @@ export async function fetchBlogs() {
       publishedAt
     }`;
     const results = await sanityClient.fetch(query);
-    console.log("fetchBlogs raw results count:", results?.length, JSON.stringify(results).substring(0, 200));
     return results.map((blog: any) => ({
       ...blog,
       body: extractPlainText(blog.body),
