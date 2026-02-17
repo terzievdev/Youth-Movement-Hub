@@ -66,11 +66,10 @@ export default function AllArticles() {
                       data-testid={`card-article-${blog._id}`}
                     >
                       {blog.imageUrl && (
-                        <div className="h-64 relative overflow-hidden">
+                        <div className="relative overflow-hidden">
                           <img
                             src={blog.imageUrl}
-                            className="w-full h-full object-cover"
-                            style={{ objectPosition: 'center 20%' }}
+                            className="w-full max-h-80 object-cover object-top"
                             alt={blog.title}
                           />
                         </div>

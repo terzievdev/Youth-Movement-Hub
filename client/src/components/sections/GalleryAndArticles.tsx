@@ -114,11 +114,10 @@ export function GalleryAndArticles() {
                     data-testid={`card-article-${blog._id}`}
                   >
                     {blog.imageUrl && (
-                      <div className="h-64 relative overflow-hidden">
+                      <div className="relative overflow-hidden">
                         <img 
                           src={blog.imageUrl} 
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                          style={{ objectPosition: 'center 20%' }}
+                          className="w-full max-h-72 object-cover object-top transition-transform duration-500 group-hover:scale-105" 
                           alt={blog.title} 
                         />
                       </div>

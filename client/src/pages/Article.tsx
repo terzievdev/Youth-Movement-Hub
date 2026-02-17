@@ -159,7 +159,7 @@ export default function Article() {
             </div>
             {sanityBlog.imageUrl && (
               <div className="mb-12 rounded-2xl overflow-hidden shadow-xl border border-border/20">
-                <img src={sanityBlog.imageUrl} alt={sanityBlog.title} className="w-full h-80 md:h-[28rem] object-cover" style={{ objectPosition: 'center 20%' }} />
+                <img src={sanityBlog.imageUrl} alt={sanityBlog.title} className="w-full max-h-[32rem] object-cover object-top" />
               </div>
             )}
             <article className="prose prose-lg max-w-none text-muted-foreground">
