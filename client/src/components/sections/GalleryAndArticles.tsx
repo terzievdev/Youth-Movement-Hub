@@ -106,7 +106,7 @@ export function GalleryAndArticles() {
           <div id="articles">
             <h2 className="text-4xl font-serif font-bold text-primary mb-8" data-testid="text-articles-title">Статии</h2>
             <div className="space-y-6">
-              {blogs.length > 0 ? blogs.map((blog) => (
+              {blogs.length > 0 ? blogs.slice(0, 2).map((blog) => (
                 <Link key={blog._id} href={`/article/${blog.slug}`}>
                   <motion.div 
                     whileHover={{ y: -5 }}
@@ -114,13 +114,12 @@ export function GalleryAndArticles() {
                     data-testid={`card-article-${blog._id}`}
                   >
                     {blog.imageUrl && (
-                      <div className="h-56 relative overflow-hidden">
+                      <div className="h-64 relative overflow-hidden bg-black/5">
                         <img 
                           src={blog.imageUrl} 
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                          className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" 
                           alt={blog.title} 
                         />
-                        <div className="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Ново</div>
                       </div>
                     )}
                     <div className="p-8">
@@ -145,6 +144,17 @@ export function GalleryAndArticles() {
                   <h3 className="text-xl font-serif font-bold text-primary mb-2">Очаквайте скоро</h3>
                   <p className="text-muted-foreground text-sm">Работим върху интересни статии за вас.</p>
                 </div>
+              )}
+              {blogs.length > 0 && (
+                <Link href="/articles">
+                  <motion.div
+                    whileHover={{ y: -2 }}
+                    className="flex items-center justify-center gap-2 py-4 text-primary font-serif font-bold text-lg hover:text-accent transition-colors cursor-pointer mt-4"
+                    data-testid="link-all-articles"
+                  >
+                    Виж всички статии <ArrowRight className="w-5 h-5" />
+                  </motion.div>
+                </Link>
               )}
             </div>
           </div>
