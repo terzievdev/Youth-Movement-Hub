@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { HandHeart, Briefcase, ChevronRight, X, Check, Copy, Landmark } from "lucide-react";
+import { HandHeart, Briefcase, ChevronRight, X, Check, Copy, Landmark, Clock } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import missionBg from "@/assets/mission-bg.png";
@@ -130,13 +130,6 @@ function DonationModal({
   onClose: () => void;
 }) {
   const [copied, setCopied] = useState(false);
-  const IBAN = "BG80 BNBG 9661 1020 3456 78";
-
-  const handleCopyIBAN = async () => {
-    await navigator.clipboard.writeText(IBAN.replace(/\s/g, ""));
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -213,36 +206,9 @@ function DonationModal({
                   
                   <div className="bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-2xl p-5 border border-gray-200/50">
                     <p className="text-xs text-muted-foreground mb-3 uppercase tracking-widest font-medium">IBAN</p>
-                    <div className="flex items-center justify-between gap-3 bg-white rounded-xl p-4 border border-gray-100">
-                      <code className="font-mono text-base md:text-lg text-primary tracking-wider font-semibold">
-                        {IBAN}
-                      </code>
-                      <div className="relative">
-                        <button
-                          onClick={handleCopyIBAN}
-                          className="p-3 bg-primary/5 rounded-xl border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all duration-300 group"
-                          data-testid="copy-iban-button"
-                        >
-                          {copied ? (
-                            <Check className="w-4 h-4 text-green-500" />
-                          ) : (
-                            <Copy className="w-4 h-4 text-primary/60 group-hover:text-primary transition-colors" />
-                          )}
-                        </button>
-                        <AnimatePresence>
-                          {copied && (
-                            <motion.div
-                              initial={{ opacity: 0, y: 5 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: -5 }}
-                              className="absolute -top-10 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs px-3 py-1.5 rounded-lg whitespace-nowrap"
-                            >
-                              Копирано!
-                              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rotate-45 w-2 h-2 bg-gray-900" />
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
+                    <div className="flex items-center justify-center gap-3 bg-white rounded-xl p-5 border border-gray-100">
+                      <Clock className="w-5 h-5 text-accent/60" />
+                      <p className="text-muted-foreground font-medium text-base">Очаквайте скоро</p>
                     </div>
                     <div className="mt-4 pt-4 border-t border-gray-200/50">
                       <p className="text-sm text-muted-foreground">
