@@ -69,7 +69,7 @@ export default function AllArticles() {
                         <div className="h-64 relative overflow-hidden">
                           <img
                             src={blog.imageUrl}
-                            className="w-full h-full object-contain bg-black/5"
+                            className="w-full h-full object-cover"
                             alt={blog.title}
                           />
                         </div>

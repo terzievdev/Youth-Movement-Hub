@@ -114,10 +114,10 @@ export function GalleryAndArticles() {
                     data-testid={`card-article-${blog._id}`}
                   >
                     {blog.imageUrl && (
-                      <div className="h-64 relative overflow-hidden bg-black/5">
+                      <div className="h-64 relative overflow-hidden">
                         <img 
                           src={blog.imageUrl} 
-                          className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" 
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                           alt={blog.title} 
                         />
                       </div>

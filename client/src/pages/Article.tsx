@@ -158,8 +158,8 @@ export default function Article() {
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-primary leading-tight mb-4" data-testid="text-article-title">{sanityBlog.title}</h1>
             </div>
             {sanityBlog.imageUrl && (
-              <div className="mb-12 rounded-2xl overflow-hidden shadow-xl border border-border/20 bg-black/5">
-                <img src={sanityBlog.imageUrl} alt={sanityBlog.title} className="w-full max-h-[500px] object-contain mx-auto" />
+              <div className="mb-12 rounded-2xl overflow-hidden shadow-xl border border-border/20">
+                <img src={sanityBlog.imageUrl} alt={sanityBlog.title} className="w-full h-80 md:h-[28rem] object-cover" />
               </div>
             )}
             <article className="prose prose-lg max-w-none text-muted-foreground">
