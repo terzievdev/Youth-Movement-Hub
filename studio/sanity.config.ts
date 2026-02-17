@@ -8,6 +8,7 @@ export default defineConfig({
   title: 'NEXT GEN BULGARIA',
   projectId: 'qrrji2vr',
   dataset: 'production',
+  basePath: '/studio',
   plugins: [
     structureTool(),
     visionTool(),

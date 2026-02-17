@@ -65,6 +65,7 @@ app.use((req, res, next) => {
 
   const studioPath = path.resolve(process.cwd(), "studio/dist");
   app.use("/studio", express.static(studioPath));
+  app.use("/static", express.static(path.resolve(studioPath, "static")));
   app.use((req, res, next) => {
     if (req.path.startsWith("/studio")) {
       res.sendFile(path.resolve(studioPath, "index.html"));
