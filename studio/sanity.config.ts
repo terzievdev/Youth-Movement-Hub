@@ -16,4 +16,7 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
+  document: {
+    actions: (prev) => prev,
+  },
 })
